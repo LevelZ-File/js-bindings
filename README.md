@@ -1,2 +1,3 @@
 # js-bindings
-JavaScript Bindings for the LevelZ File Format
+
+> JavaScript Bindings for the LevelZ File Format
