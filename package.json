@@ -1,0 +1,23 @@
+{
+  "name": "js-bindings",
+  "version": "0.1.0",
+  "description": "JavaScript Bindings for the LevelZ File Format",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LevelZ-File/js-bindings.git"
+  },
+  "keywords": [
+    "levelz",
+    "library"
+  ],
+  "author": "Calculus Games",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LevelZ-File/js-bindings/issues"
+  },
+  "homepage": "https://github.com/LevelZ-File/js-bindings#readme"
+}
