@@ -1,5 +1,5 @@
 {
-  "name": "js-bindings",
+  "name": "levelz-js",
   "version": "0.1.0",
   "description": "JavaScript Bindings for the LevelZ File Format",
   "main": "index.js",
@@ -19,5 +19,11 @@
   "bugs": {
     "url": "https://github.com/LevelZ-File/js-bindings/issues"
   },
-  "homepage": "https://github.com/LevelZ-File/js-bindings#readme"
+  "homepage": "https://github.com/LevelZ-File/js-bindings#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.24.1",
+    "@babel/core": "^7.24.3",
+    "@babel/preset-env": "^7.24.3",
+    "jest": "^29.7.0"
+  }
 }
