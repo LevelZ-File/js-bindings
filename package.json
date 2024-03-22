@@ -4,7 +4,8 @@
   "description": "JavaScript Bindings for the LevelZ File Format",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "doc": "jsdoc src/* -d docs"
   },
   "repository": {
     "type": "git",
