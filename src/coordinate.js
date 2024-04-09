@@ -42,6 +42,7 @@ export class Coordinate2D extends Coordinate {
      * @param {number} y The Y Value
      */
     constructor(x, y) {
+        super()
         if (typeof(x) !== 'number' || typeof(y) !== 'number')
             throw new SyntaxError('Invalid input')
         
@@ -119,6 +120,7 @@ export class Coordinate3D extends Coordinate {
      * @param {number} z The Z Value 
      */
     constructor(x, y, z) {
+        super()
         if (typeof(x) !== 'number' || typeof(y) !== 'number' || typeof(z) !== 'number')
             throw new SyntaxError('Invalid input')
         
