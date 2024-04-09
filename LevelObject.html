@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Coordinate2D</title>
+    <title>JSDoc: Class: LevelObject</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: Coordinate2D</h1>
+    <h1 class="page-title">Class: LevelObject</h1>
 
     
 
@@ -28,9 +28,9 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Coordinate2D<span class="signature">(x, y)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>LevelObject<span class="signature">(block, coordinate)</span><span class="type-signature"></span></h2>
         
-            <div class="class-description">2D Coordinates in LevelZ</div>
+            <div class="class-description">Coordinate and Block in LevelZ World</div>
         
     
 </header>
@@ -45,7 +45,7 @@
     
 
     
-    <h4 class="name" id="Coordinate2D"><span class="type-signature"></span>new Coordinate2D<span class="signature">(x, y)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="LevelObject"><span class="type-signature"></span>new LevelObject<span class="signature">(block, coordinate)</span><span class="type-signature"></span></h4>
     
 
     
@@ -53,7 +53,7 @@
 
 
 <div class="description">
-    Constructs a new 2D Coordinate.
+    Constructs a new LevelObject.
 </div>
 
 
@@ -89,13 +89,13 @@
 
         <tr>
             
-                <td class="name"><code>x</code></td>
+                <td class="name"><code>block</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type"><a href="Block.html">Block</a></span>
 
 
             
@@ -105,20 +105,20 @@
 
             
 
-            <td class="description last">The X Value</td>
+            <td class="description last">The Block</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>y</code></td>
+                <td class="name"><code>coordinate</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type"><a href="Coordinate.html">Coordinate</a></span>
 
 
             
@@ -128,7 +128,7 @@
 
             
 
-            <td class="description last">The Y Value</td>
+            <td class="description last">The Coordinate</td>
         </tr>
 
     
@@ -169,7 +169,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="coordinate.js.html">coordinate.js</a>, <a href="coordinate.js.html#line25">line 25</a>
+        <a href="object.js.html">object.js</a>, <a href="object.js.html#line8">line 8</a>
     </li></ul></dd>
     
 
@@ -210,7 +210,7 @@
         <h3 class="subsection-title">Classes</h3>
 
         <dl>
-            <dt><a href="Coordinate2D.html">Coordinate2D</a></dt>
+            <dt><a href="LevelObject.html">LevelObject</a></dt>
             <dd></dd>
         </dl>
     
@@ -226,13 +226,13 @@
 
         
             
-<h4 class="name" id="x"><span class="type-signature"></span>x<span class="type-signature"> :number</span></h4>
+<h4 class="name" id="block"><span class="type-signature"></span>block<span class="type-signature"> :<a href="Block.html">Block</a></span></h4>
 
 
 
 
 <div class="description">
-    The X value for this 2D Coordinate.
+    The Block of this LevelObject.
 </div>
 
 
@@ -241,7 +241,7 @@
     <ul>
         <li>
             
-<span class="param-type">number</span>
+<span class="param-type"><a href="Block.html">Block</a></span>
 
 
         </li>
@@ -280,7 +280,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="coordinate.js.html">coordinate.js</a>, <a href="coordinate.js.html#line30">line 30</a>
+        <a href="object.js.html">object.js</a>, <a href="object.js.html#line14">line 14</a>
     </li></ul></dd>
     
 
@@ -298,13 +298,13 @@
 
         
             
-<h4 class="name" id="y"><span class="type-signature"></span>y<span class="type-signature"> :number</span></h4>
+<h4 class="name" id="coordinate"><span class="type-signature"></span>coordinate<span class="type-signature"> :<a href="Coordinate.html">Coordinate</a></span></h4>
 
 
 
 
 <div class="description">
-    The Y value for this 2D Coordinate.
+    The Coordinate of this LevelObject.
 </div>
 
 
@@ -313,7 +313,7 @@
     <ul>
         <li>
             
-<span class="param-type">number</span>
+<span class="param-type"><a href="Coordinate.html">Coordinate</a></span>
 
 
         </li>
@@ -352,69 +352,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="coordinate.js.html">coordinate.js</a>, <a href="coordinate.js.html#line36">line 36</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".zero"><span class="type-signature">(static) </span>zero<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    Returns a new 2D Coordinate with X and Y at `0`.
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="coordinate.js.html">coordinate.js</a>, <a href="coordinate.js.html#line72">line 72</a>
+        <a href="object.js.html">object.js</a>, <a href="object.js.html#line20">line 20</a>
     </li></ul></dd>
     
 
@@ -450,7 +388,7 @@
 
 
 <div class="description">
-    Returns the string representation of this 2D Coordinate.
+    Returns the string representation of this LevelObject.
 </div>
 
 
@@ -494,7 +432,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="coordinate.js.html">coordinate.js</a>, <a href="coordinate.js.html#line61">line 61</a>
+        <a href="object.js.html">object.js</a>, <a href="object.js.html#line37">line 37</a>
     </li></ul></dd>
     
 
@@ -523,7 +461,7 @@
 
         
 <div class="param-desc">
-    The string representation of this 2D Coordinate.
+    The string representation of this LevelObject.
 </div>
 
 
@@ -535,165 +473,6 @@
     <dd>
         
 <span class="param-type">string</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".fromString"><span class="type-signature">(static) </span>fromString<span class="signature">(str)</span><span class="type-signature"> &rarr; {<a href="Coordinate2D.html">Coordinate2D</a>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Converts a string to a 2D Coordinate.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>str</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The string to convert</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="coordinate.js.html">coordinate.js</a>, <a href="coordinate.js.html#line82">line 82</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    The 2D Coordinate
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="Coordinate2D.html">Coordinate2D</a></span>
 
 
     </dd>
