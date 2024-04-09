@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "doc": "jsdoc src/* -d docs",
-    "compile": "ncc build index.js -o docs -s -m && mv docs/index.js docs/levelz.js && mv docs/index.js.map docs/levelz.js.map"
+    "compile": "browserify index.js --debug -t [ babelify --presets [ @babel/preset-env ] ] | exorcist docs/levelz.js.map > docs/levelz.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,8 @@
     "@babel/cli": "^7.24.1",
     "@babel/core": "^7.24.4",
     "@babel/preset-env": "^7.24.4",
-    "jest": "^29.7.0"
+    "babelify": "^10.0.0",
+    "jest": "^29.7.0",
+    "v": "^0.3.0"
   }
 }

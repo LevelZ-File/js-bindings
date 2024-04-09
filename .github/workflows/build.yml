@@ -42,7 +42,7 @@ jobs:
     - name: Install Dependencies
       run: |
         npm ci
-        npm install -g jsdoc
+        npm install -g jsdoc browserify exorcist
 
     - name: Generate JSDoc
       run: npm run doc
