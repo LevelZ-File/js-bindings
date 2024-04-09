@@ -4,6 +4,8 @@ git fetch origin gh-pages
 
 git switch -f gh-pages
 
+cp LICENSE docs/LICENSE.html
+
 for dir in ./*
 do
   if [ "$dir" == "./docs" ]; then
