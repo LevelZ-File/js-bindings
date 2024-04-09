@@ -1,8 +1,28 @@
 /**
+ * Represents an abstract Coordinate.
+ * @abstract
+ * @classdesc Abstract Coordinate for representation purposes
+ */
+export class Coordinate {
+    constructor() {
+        if (new.target === Coordinate)
+            throw new TypeError('Cannot instantiate abstract class')
+    }
+
+    /**
+     * Returns the magnitude of this Coordinate.
+     * @returns {number} The magnitude of this Coordinate.
+     */
+    get magnitude() {
+        throw new Error('Abstract method')
+    }
+}
+
+/**
  * Represents a 2D Coordinate.
  * @classdesc 2D Coordinates in LevelZ
  */
-export class Coordinate2D {
+export class Coordinate2D extends Coordinate {
     /**
      * The X value for this 2D Coordinate.
      * @type {number}
@@ -17,6 +37,7 @@ export class Coordinate2D {
 
     /**
      * Constructs a new 2D Coordinate.
+     * @constructor
      * @param {number} x The X Value
      * @param {number} y The Y Value
      */
@@ -28,18 +49,24 @@ export class Coordinate2D {
         this.y = y
     }
     
-    /**
-     * Returns the magnitude of this 2D Coordinate.
-     * @returns {number} The magnitude of this 2D Coordinate.
-     */
     get magnitude() {
         return Math.sqrt(this.x * this.x + this.y * this.y)
+    }
+
+    /**
+     * Returns the string representation of this 2D Coordinate.
+     * @returns {string} The string representation of this 2D Coordinate.
+     */
+    toString() {
+        return `[${this.x}, ${this.y}]`
     }
 
     // Statics
 
     /**
      * Returns a new 2D Coordinate with X and Y at `0`.
+     * @static
+     * @returns {Coordinate2D} The 2D Coordinate
      */
     static get zero() {
         return new Coordinate2D(0, 0)
@@ -47,6 +74,7 @@ export class Coordinate2D {
 
     /**
      * Converts a string to a 2D Coordinate.
+     * @static
      * @param {string} str The string to convert 
      * @returns {Coordinate2D} The 2D Coordinate
      */
@@ -64,7 +92,7 @@ export class Coordinate2D {
  * Represents a 3D Coordinate.
  * @classdesc 3D Coordinates in LevelZ
  */
-export class Coordinate3D {
+export class Coordinate3D extends Coordinate {
 
     /**
      * The X value for this 3D Coordinate.
@@ -99,18 +127,24 @@ export class Coordinate3D {
         this.z = z   
     }
 
-    /**
-     * Returns the magnitude of this 3D Coordinate.
-     * @returns {number} The magnitude of this 3D Coordinate.
-     */
     get magnitude() {
         return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z)
+    }
+
+    /**
+     * Returns the string representation of this 3D Coordinate.
+     * @returns {string} The string representation of this 3D Coordinate.
+     */
+    toString() {
+        return `[${this.x}, ${this.y}, ${this.z}]`
     }
 
     // Statics
 
     /**
      * Returns a new 3D Coordinate with X, Y and Z at `0`.
+     * @static
+     * @returns {Coordinate3D} The 3D Coordinate
      */
     static get zero() {
         return new Coordinate3D(0, 0, 0)
@@ -118,6 +152,7 @@ export class Coordinate3D {
 
     /**
      * Converts a string to a 3D Coordinate.
+     * @static
      * @param {string} str The string to convert 
      * @returns {Coordinate3D} The 3D Coordinate
      */
