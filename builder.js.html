@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: builder.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: builder.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { Dimension, LevelObject } from "./block.js";
+import { Coordinate, Coordinate2D, Coordinate3D } from "./coordinate.js";
+import { Level, Level2D, Level3D } from "./level.js";
+
+/**
+ * Represents a builder for creating LevelZ Levels.
+ * @classdesc Level Builder for LevelZ
+ */
+export class LevelBuilder {
+
+    /**
+     * The dimension of the level.
+     * @type {number}
+     */
+    dimension;
+
+    /**
+     * The headers of the level.
+     * @type {Map&lt;string, any>}
+     */
+    headers = new Map();
+
+    /**
+     * The blocks of the level.
+     * @type {Set&lt;LevelObject>}
+     */
+    blocks = new Set();
+
+    /**
+     * Constructs a new Level Builder.
+     * @constructs LevelBuilder
+     * @param {Dimension} dimension The dimension for the level.
+     */
+    constructor(dimension) {
+        if (dimension !== 2 &amp;&amp; dimension !== 3)
+            throw new SyntaxError('Invalid dimension; must be 2 or 3')
+        this.dimension = dimension
+    }
+
+    /**
+     * Sets the spawn point for the level.
+     * @param {Coordinate} coordinate The coordinate to spawn the object at.
+     * @throws Invalid coordinate; must be 2D or 3D (according to the {@link dimension})
+     */
+    set spawn(coordinate) {
+        if (coordinate instanceof Array) {
+            if (coordinate.length !== this.dimension)
+                throw new SyntaxError(`Invalid coordinate; must be ${this.dimension}D`)
+
+            if (this.dimension === 2)
+                this.headers.set('spawn', new Coordinate2D(coordinate[0], coordinate[1]))
+
+            if (this.dimension === 3)
+                this.headers.set('spawn', new Coordinate3D(coordinate[0], coordinate[1], coordinate[2]))
+
+            return
+        }
+
+        if (this.dimension == 2 &amp;&amp; !(coordinate instanceof Coordinate2D))
+            throw new SyntaxError('Invalid coordinate; must be 2D')
+
+        if (this.dimension == 3 &amp;&amp; !(coordinate instanceof Coordinate3D))
+            throw new SyntaxError('Invalid coordinate; must be 3D')
+
+        this.headers.set('spawn', coordinate)
+    }
+
+    /**
+     * Sets a header value.
+     * @param {string} key The key of the header 
+     * @param {*} value The value of the header
+     */
+    header(key, value) {
+        this.headers.set(key, value)
+    }
+
+    /**
+     * Adds a Block to the level.
+     * @param {LevelObject} block The level object to add to the level. 
+     * @throws Invalid coordinate; must be 2D or 3D (according to the {@link dimension})
+     */
+    block(block) {
+        if (this.dimension === 2 &amp;&amp; !(block.coordinate instanceof Coordinate2D))
+            throw new SyntaxError('Invalid coordinate; object coordinate must be 2D')
+
+        if (this.dimension === 3 &amp;&amp; !(block.coordinate instanceof Coordinate3D))
+            throw new SyntaxError('Invalid coordinate; object coordinate must be 3D')
+
+        this.blocks.add(block)
+    }
+
+    /**
+     * Adds a Block to the level.
+     * @param {string} name The name of the block.
+     * @param {Coordinate} coordinate The coordinate of the block.
+     * @param {Map&lt;string, any>} properties The properties of the block.
+     */
+    block(name, coordinate, properties) {
+        this.block(new LevelObject(name, coordinate, properties))
+    }
+
+    /**
+     * Builds the level.
+     * @returns {Level} The built level.
+     */
+    build() {
+        if (this.dimension === 2) return new Level2D(this.headers, this.blocks)
+        if (this.dimension === 3) return new Level3D(this.headers, this.blocks)
+
+        throw new SyntaxError('Invalid dimension; must be 2 or 3')
+    }
+
+    // Statics
+
+    /**
+     * Creates a new 2D Level Builder.
+     * @returns {LevelBuilder} A new 2D Level Builder.
+     */
+    static create2D() {
+        return new LevelBuilder(Dimension.TWO)
+    }
+
+    /**
+     * Creates a new 3D Level Builder.
+     * @returns {LevelBuilder} A new 3D Level Builder.
+     */
+    static create3D() {
+        return new LevelBuilder(Dimension.THREE)
+    }
+
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Block.html">Block</a></li><li><a href="Coordinate.html">Coordinate</a></li><li><a href="Coordinate2D.html">Coordinate2D</a></li><li><a href="Coordinate3D.html">Coordinate3D</a></li><li><a href="Level.html">Level</a></li><li><a href="Level2D.html">Level2D</a></li><li><a href="Level3D.html">Level3D</a></li><li><a href="LevelBuilder.html">LevelBuilder</a></li><li><a href="LevelObject.html">LevelObject</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Apr 10 2024 01:07:57 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

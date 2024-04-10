@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Coordinate2D</title>
+    <title>JSDoc: Class: Level3D</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: Coordinate2D</h1>
+    <h1 class="page-title">Class: Level3D</h1>
 
     
 
@@ -28,9 +28,9 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Coordinate2D<span class="signature">(x, y)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>Level3D<span class="signature">(headers, blocks)</span><span class="type-signature"></span></h2>
         
-            <div class="class-description">2D Coordinates in LevelZ</div>
+            <div class="class-description">3D Level in LevelZ</div>
         
     
 </header>
@@ -45,7 +45,7 @@
     
 
     
-    <h4 class="name" id="Coordinate2D"><span class="type-signature"></span>new Coordinate2D<span class="signature">(x, y)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Level3D"><span class="type-signature"></span>new Level3D<span class="signature">(headers, blocks)</span><span class="type-signature"></span></h4>
     
 
     
@@ -53,7 +53,7 @@
 
 
 <div class="description">
-    Constructs a new 2D Coordinate.
+    Constructs a 3D Level.
 </div>
 
 
@@ -89,13 +89,13 @@
 
         <tr>
             
-                <td class="name"><code>x</code></td>
+                <td class="name"><code>headers</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type"><a href="global.html#Headers">Headers</a></span>
 
 
             
@@ -105,20 +105,20 @@
 
             
 
-            <td class="description last">The X Value</td>
+            <td class="description last"></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>y</code></td>
+                <td class="name"><code>blocks</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">Set.&lt;<a href="LevelObject.html">LevelObject</a>></span>
 
 
             
@@ -128,7 +128,7 @@
 
             
 
-            <td class="description last">The Y Value</td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -169,7 +169,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="coordinate.js.html">coordinate.js</a>, <a href="coordinate.js.html#line54">line 54</a>
+        <a href="level.js.html">level.js</a>, <a href="level.js.html#line212">line 212</a>
     </li></ul></dd>
     
 
@@ -209,7 +209,7 @@
 
 
     <ul>
-        <li><a href="Coordinate.html">Coordinate</a></li>
+        <li><a href="Level.html">Level</a></li>
     </ul>
 
 
@@ -217,13 +217,6 @@
 
     
 
-    
-        <h3 class="subsection-title">Classes</h3>
-
-        <dl>
-            <dt><a href="Coordinate2D.html">Coordinate2D</a></dt>
-            <dd></dd>
-        </dl>
     
 
     
@@ -237,13 +230,90 @@
 
         
             
-<h4 class="name" id="dimension"><span class="type-signature"></span>dimension<span class="type-signature"></span></h4>
+<h4 class="name" id="blocks"><span class="type-signature"></span>blocks<span class="type-signature"> :Set.&lt;<a href="LevelObject.html">LevelObject</a>></span></h4>
 
 
 
 
 <div class="description">
-    Returns the dimension of this Coordinate.
+    The blocks in the level.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Set.&lt;<a href="LevelObject.html">LevelObject</a>></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="Level.html#blocks">Level#blocks</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="level.js.html">level.js</a>, <a href="level.js.html#line28">line 28</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="coordinates"><span class="type-signature"></span>coordinates<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Gets all the coordinates of the blocks in the level.
 </div>
 
 
@@ -263,7 +333,7 @@
     
     <dt class="tag-overrides">Overrides:</dt>
     <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="Coordinate.html#dimension">Coordinate#dimension</a>
+        <a href="Level.html#coordinates">Level#coordinates</a>
     </li></ul></dd>
     
 
@@ -286,7 +356,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="coordinate.js.html">coordinate.js</a>, <a href="coordinate.js.html#line44">line 44</a>
+        <a href="level.js.html">level.js</a>, <a href="level.js.html#line57">line 57</a>
     </li></ul></dd>
     
 
@@ -304,13 +374,167 @@
 
         
             
-<h4 class="name" id="magnitude"><span class="type-signature"></span>magnitude<span class="type-signature"></span></h4>
+<h4 class="name" id="dimension"><span class="type-signature"></span>dimension<span class="type-signature"> :<a href="global.html#Dimension">Dimension</a></span></h4>
 
 
 
 
 <div class="description">
-    Returns the magnitude of this Coordinate.
+    The dimension of the level.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><a href="global.html#Dimension">Dimension</a></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="Level.html#dimension">Level#dimension</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="level.js.html">level.js</a>, <a href="level.js.html#line41">line 41</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="headers"><span class="type-signature"></span>headers<span class="type-signature"> :Map.&lt;string, any></span></h4>
+
+
+
+
+<div class="description">
+    The headers of the level.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Map.&lt;string, any></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="Level.html#headers">Level#headers</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="level.js.html">level.js</a>, <a href="level.js.html#line22">line 22</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="rawBlocks"><span class="type-signature"></span>rawBlocks<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    Gets all the raw blocks in the level.
 </div>
 
 
@@ -330,7 +554,7 @@
     
     <dt class="tag-overrides">Overrides:</dt>
     <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="Coordinate.html#magnitude">Coordinate#magnitude</a>
+        <a href="Level.html#rawBlocks">Level#rawBlocks</a>
     </li></ul></dd>
     
 
@@ -353,79 +577,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="coordinate.js.html">coordinate.js</a>, <a href="coordinate.js.html#line36">line 36</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="x"><span class="type-signature"></span>x<span class="type-signature"> :number</span></h4>
-
-
-
-
-<div class="description">
-    The X value for this 2D Coordinate.
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">number</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="coordinate.js.html">coordinate.js</a>, <a href="coordinate.js.html#line59">line 59</a>
+        <a href="level.js.html">level.js</a>, <a href="level.js.html#line65">line 65</a>
     </li></ul></dd>
     
 
@@ -443,26 +595,16 @@
 
         
             
-<h4 class="name" id="y"><span class="type-signature"></span>y<span class="type-signature"> :number</span></h4>
+<h4 class="name" id="spawn"><span class="type-signature"></span>spawn<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    The Y value for this 2D Coordinate.
+    Gets the spawn point of the level.
 </div>
 
 
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">number</span>
-
-
-        </li>
-    </ul>
 
 
 
@@ -476,6 +618,11 @@
 
     
 
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="Level.html#spawn">Level#spawn</a>
+    </li></ul></dd>
     
 
     
@@ -497,7 +644,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="coordinate.js.html">coordinate.js</a>, <a href="coordinate.js.html#line65">line 65</a>
+        <a href="level.js.html">level.js</a>, <a href="level.js.html#line236">line 236</a>
     </li></ul></dd>
     
 
@@ -515,13 +662,13 @@
 
         
             
-<h4 class="name" id=".zero"><span class="type-signature">(static) </span>zero<span class="type-signature"></span></h4>
+<h4 class="name" id="spawn"><span class="type-signature"></span>spawn<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    Returns a new 2D Coordinate with X and Y at `0`.
+    Sets the spawn point for the level.
 </div>
 
 
@@ -538,6 +685,11 @@
 
     
 
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="Level.html#spawn">Level#spawn</a>
+    </li></ul></dd>
     
 
     
@@ -559,7 +711,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="coordinate.js.html">coordinate.js</a>, <a href="coordinate.js.html#line105">line 105</a>
+        <a href="level.js.html">level.js</a>, <a href="level.js.html#line244">line 244</a>
     </li></ul></dd>
     
 
@@ -595,7 +747,7 @@
 
 
 <div class="description">
-    Returns the string representation of this 2D Coordinate.
+    Gets the string representation of the level.
 </div>
 
 
@@ -619,6 +771,11 @@
     
 
     
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="Level.html#toString">Level#toString</a>
+    </li></ul></dd>
+    
 
     
 
@@ -639,7 +796,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="coordinate.js.html">coordinate.js</a>, <a href="coordinate.js.html#line94">line 94</a>
+        <a href="level.js.html">level.js</a>, <a href="level.js.html#line73">line 73</a>
     </li></ul></dd>
     
 
@@ -668,7 +825,7 @@
 
         
 <div class="param-desc">
-    The string representation of this 2D Coordinate.
+    The string representation of the level.
 </div>
 
 
@@ -680,165 +837,6 @@
     <dd>
         
 <span class="param-type">string</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id=".fromString"><span class="type-signature">(static) </span>fromString<span class="signature">(str)</span><span class="type-signature"> &rarr; {<a href="Coordinate2D.html">Coordinate2D</a>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Converts a string to a 2D Coordinate.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>str</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The string to convert</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="coordinate.js.html">coordinate.js</a>, <a href="coordinate.js.html#line115">line 115</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    The 2D Coordinate
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="Coordinate2D.html">Coordinate2D</a></span>
 
 
     </dd>
