@@ -1,4 +1,24 @@
 /**
+ * @typedef {2|3} Dimension
+ */
+
+/**
+ * Represents a Dimension.
+ */
+export const Dimension = {
+    /**
+     * Represents the 2D Dimension.
+     * @type {Dimension}
+     */
+    TWO: 2,
+    /**
+     * Represents the 3D Dimension.
+     * @type {Dimension}
+     */
+    THREE: 3
+}
+
+/**
  * Represents an abstract Coordinate.
  * @abstract
  * @classdesc Abstract Coordinate for representation purposes
@@ -16,11 +36,20 @@ export class Coordinate {
     get magnitude() {
         throw new Error('Abstract method')
     }
+
+    /**
+     * Returns the dimension of this Coordinate.
+     * @returns {Dimension} The dimension of this Coordinate.
+     */
+    get dimension() {
+        throw new Error('Abstract method')
+    }
 }
 
 /**
  * Represents a 2D Coordinate.
  * @classdesc 2D Coordinates in LevelZ
+ * @extends Coordinate
  */
 export class Coordinate2D extends Coordinate {
     /**
@@ -52,6 +81,10 @@ export class Coordinate2D extends Coordinate {
     
     get magnitude() {
         return Math.sqrt(this.x * this.x + this.y * this.y)
+    }
+
+    get dimension() {
+        return Dimension.TWO
     }
 
     /**
@@ -92,6 +125,7 @@ export class Coordinate2D extends Coordinate {
 /**
  * Represents a 3D Coordinate.
  * @classdesc 3D Coordinates in LevelZ
+ * @extends Coordinate
  */
 export class Coordinate3D extends Coordinate {
 
@@ -131,6 +165,10 @@ export class Coordinate3D extends Coordinate {
 
     get magnitude() {
         return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z)
+    }
+
+    get dimension() {
+        return Dimension.THREE
     }
 
     /**
