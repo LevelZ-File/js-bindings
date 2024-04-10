@@ -1,0 +1,102 @@
+import { test, expect, describe } from '@jest/globals'
+import { Level, Level2D, Level3D, Scroll } from '../src/level.js'
+import { Coordinate2D, Coordinate3D } from '../src/coordinate.js'
+import { Block, LevelObject } from '../src/block.js'
+
+describe('level', () => {
+    test('abstract', () => {
+        expect(() => {
+            new Level()
+        }).toThrow(TypeError)
+    })
+
+    test('dimension', () => {
+        let l1 = new Level2D()
+        expect(l1.dimension).toBe(2)
+
+        let l2 = new Level3D()
+        expect(l2.dimension).toBe(3)
+    })
+
+    test('2D', () => {
+        let l = new Level2D()
+        l.spawn = new Coordinate2D(0, 0)
+        expect(l.spawn.x).toBe(0)
+        expect(l.spawn.y).toBe(0)
+
+        l.headers.set('spawn', new Coordinate2D(1, 1))
+        expect(l.spawn.x).toBe(1)
+        expect(l.spawn.y).toBe(1)
+
+        l.scroll = Scroll.HORIZONTAL_LEFT
+        expect(l.scroll).toBe(Scroll.HORIZONTAL_LEFT)
+
+        l.scroll = Scroll.VERTICAL_DOWN
+        expect(l.scroll).toBe(Scroll.VERTICAL_DOWN)
+    })
+
+    test('3D', () => {
+        let l = new Level3D()
+        l.spawn = new Coordinate3D(0, 2, 0)
+        expect(l.spawn.x).toBe(0)
+        expect(l.spawn.y).toBe(2)
+        expect(l.spawn.z).toBe(0)
+
+        l.headers.set('spawn', new Coordinate3D(1, 1, 4))
+        expect(l.spawn.x).toBe(1)
+        expect(l.spawn.y).toBe(1)
+        expect(l.spawn.z).toBe(4)
+    })
+
+    test('toString 2D half', () => {
+        let l = new Level2D()
+        l.spawn = new Coordinate2D(0, 0)
+        l.scroll = Scroll.HORIZONTAL_RIGHT
+
+        expect(l.toString()).toBe('@type 2\n@spawn [0, 0]\n@scroll horizontal-right')
+    })
+
+    test('toString 2D full', () => {
+        let l = new Level2D()
+        l.spawn = new Coordinate2D(0, 0)
+        l.scroll = Scroll.VERTICAL_UP
+
+        l.blocks.add(new LevelObject('grass', [0, 0]))
+        l.blocks.add(new LevelObject('stone', [1, 0]))
+
+        expect(l.toString()).toBe(
+            '@type 2\n' +
+            '@spawn [0, 0]\n' +
+            '@scroll vertical-up\n' +
+            '---\n' +
+            'grass: [0, 0]\n' +
+            'stone: [1, 0]\n' +
+            'end'
+        )
+    
+    })
+
+    test('toString 3D half', () => {
+        let l = new Level3D()
+        l.spawn = new Coordinate3D(0, 0, 0)
+
+        expect(l.toString()).toBe('@type 3\n@spawn [0, 0, 0]')
+    })
+
+    test('toString 3D full', () => {
+        let l = new Level3D()
+        l.spawn = new Coordinate3D(1, -2, 4)
+
+        l.blocks.add(new LevelObject('grass', [0, 0, 0]))
+        l.blocks.add(new LevelObject('stone', [1, 0, 0]))
+
+        expect(l.toString()).toBe(
+            '@type 3\n' +
+            '@spawn [1, -2, 4]\n' +
+            '---\n' +
+            'grass: [0, 0, 0]\n' +
+            'stone: [1, 0, 0]\n' +
+            'end'
+        )
+    })
+})
