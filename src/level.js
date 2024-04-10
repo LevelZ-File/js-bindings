@@ -2,11 +2,6 @@ import { LevelObject, Block } from "./block.js";
 import { Dimension, Coordinate, Coordinate2D, Coordinate3D } from "./coordinate.js";
 
 /**
- * Represents a Level's Headers.
- * @typedef {Map<string, any>|Object} Headers
- */
-
-/**
  * Represents a LevelZ Level.
  * @abstract
  * @classdesc Abstract Level for representation purposes
@@ -100,7 +95,7 @@ export class Level2D extends Level {
     /**
      * Constructs a 2D Level.
      * @constructs Level2D
-     * @param {Headers} [headers] The headers of the level 
+     * @param {Map<string, any>|Object.<string, any>} [headers] The headers of the level 
      * @param {Set<LevelObject>} [blocks] The blocks in the level
      */
     constructor(headers, blocks) {
@@ -214,7 +209,7 @@ export class Level3D extends Level {
     /**
      * Constructs a 3D Level.
      * @constructs Level3D
-     * @param {Headers} headers 
+     * @param {Map<string, any>|Object.<string, any>} headers 
      * @param {Set<LevelObject>} blocks 
      */
     constructor(headers, blocks) {
@@ -239,7 +234,7 @@ export class Level3D extends Level {
 
     /**
      * Sets the spawn point for the level.
-     * @param {Coordinate3D} coordinate The coordinate to spawn the object at.
+     * @param {Coordinate3D|number[]} coordinate The coordinate to spawn the object at.
      */
     set spawn(coordinate) {
         if (coordinate instanceof Array) {

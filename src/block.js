@@ -1,11 +1,6 @@
 import { Coordinate, Coordinate2D, Coordinate3D } from "./coordinate.js";
 
 /**
- * Represents a Block's properties.
- * @typedef {Map<string, any>|Object} BlockProperties
- */
-
-/**
  * Represents a Block in a level.
  * @classdesc Block in LevelZ World
  */
@@ -26,7 +21,7 @@ export class Block {
     /**
      * Constructs a new Block.
      * @param {string} name Name of the block
-     * @param {BlockProperties} [properties] Properties of the block
+     * @param {Map<string, any>|Object.<string, any>} [properties] Properties of the block
      */
     constructor(name, properties) {
         this.name = name
@@ -41,6 +36,8 @@ export class Block {
     /**
      * Returns the string representation of this block.
      * @returns {string} The string representation of this block.
+     * @example
+     * grass<snowy=false>
      */
     toString() {
         let str = `${this.name}`
@@ -78,8 +75,12 @@ export class LevelObject {
     /**
      * Constructs a new LevelObject.
      * @constructor
-     * @param {Block} block The Block
-     * @param {Coordinate} coordinate The Coordinate
+     * @param {Block|string} block The Block
+     * @param {Coordinate|number[]} coordinate The Coordinate
+     * @example
+     * new LevelObject(new Block('block'), new Coordinate2D(1, 2))
+     * @example
+     * new LevelObject('block', [1, 2])
      */
     constructor(block, coordinate) {
         if (coordinate instanceof Array) {
@@ -118,6 +119,8 @@ export class LevelObject {
     /**
      * Returns the string representation of this LevelObject.
      * @returns {string} The string representation of this LevelObject.
+     * @example
+     * block<property=value>: [x, y]
      */
     toString() {
         return `${this.block.toString()}: ${this.coordinate.toString()}`

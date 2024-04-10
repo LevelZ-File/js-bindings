@@ -1,4 +1,4 @@
-import { Dimension, LevelObject } from "./block.js";
+import { Block, Dimension, LevelObject } from "./block.js";
 import { Coordinate, Coordinate2D, Coordinate3D } from "./coordinate.js";
 import { Level, Level2D, Level3D } from "./level.js";
 
@@ -92,11 +92,11 @@ export class LevelBuilder {
     /**
      * Adds a Block to the level.
      * @param {string} name The name of the block.
-     * @param {Coordinate} coordinate The coordinate of the block.
-     * @param {Map<string, any>} properties The properties of the block.
+     * @param {Coordinate|number[]} coordinate The coordinate of the block.
+     * @param {Map<string, any>|Object.<string, any>} properties The properties of the block.
      */
     block(name, coordinate, properties) {
-        this.block(new LevelObject(name, coordinate, properties))
+        this.block(new LevelObject(new Block(name, properties), coordinate))
     }
 
     /**

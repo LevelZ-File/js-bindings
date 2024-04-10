@@ -1,4 +1,5 @@
 /**
+ * 2D or 3D space.
  * @typedef {2|3} Dimension
  */
 
