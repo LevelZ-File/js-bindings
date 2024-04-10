@@ -4,7 +4,7 @@
   "description": "JavaScript Bindings for the LevelZ File Format",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "doc": "jsdoc src/* -d docs",
     "compile": "bash jscompile.sh"
   },
