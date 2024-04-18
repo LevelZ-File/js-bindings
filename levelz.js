@@ -70,13 +70,20 @@ Object.defineProperty(exports, "Scroll", {
     return _level["default"];
   }
 });
+Object.defineProperty(exports, "parseLevel", {
+  enumerable: true,
+  get: function get() {
+    return _parser["default"];
+  }
+});
 var _coordinate = _interopRequireDefault(require("./src/coordinate.js"));
 var _block = _interopRequireDefault(require("./src/block.js"));
 var _level = _interopRequireDefault(require("./src/level.js"));
 var _builder = _interopRequireDefault(require("./src/builder.js"));
+var _parser = _interopRequireDefault(require("./src/parser.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-},{"./src/block.js":2,"./src/builder.js":3,"./src/coordinate.js":4,"./src/level.js":5}],2:[function(require,module,exports){
+},{"./src/block.js":2,"./src/builder.js":3,"./src/coordinate.js":4,"./src/level.js":5,"./src/parser.js":6}],2:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -352,7 +359,7 @@ var LevelBuilder = exports.LevelBuilder = /*#__PURE__*/function () {
   }], [{
     key: "create2D",
     value: function create2D() {
-      return new LevelBuilder(_block2.Dimension.TWO);
+      return new LevelBuilder(_coordinate.Dimension.TWO);
     }
 
     /**
@@ -362,7 +369,7 @@ var LevelBuilder = exports.LevelBuilder = /*#__PURE__*/function () {
   }, {
     key: "create3D",
     value: function create3D() {
-      return new LevelBuilder(_block2.Dimension.THREE);
+      return new LevelBuilder(_coordinate.Dimension.THREE);
     }
   }]);
 }();
@@ -516,8 +523,10 @@ var Coordinate2D = exports.Coordinate2D = /*#__PURE__*/function (_Coordinate) {
   }, {
     key: "fromString",
     value: function fromString(str) {
-      if (typeof str !== 'string') throw new SyntaxError('Invalid input');
+      if (!str || typeof str !== 'string') throw new SyntaxError('Invalid input');
+      if (!str.startsWith('[') || !str.endsWith(']')) throw new SyntaxError('Invalid input');
       var values = str.substring(1, str.length - 1).split(',');
+      if (values.length !== 2) throw new SyntaxError('Invalid input: 2 values expected');
       return new Coordinate2D(Number(values[0].trim()), Number(values[1].trim()));
     }
   }]);
@@ -603,8 +612,10 @@ var Coordinate3D = exports.Coordinate3D = /*#__PURE__*/function (_Coordinate2) {
   }, {
     key: "fromString",
     value: function fromString(str) {
-      if (typeof str !== 'string') throw new SyntaxError('Invalid input');
+      if (!str || typeof str !== 'string') throw new SyntaxError('Invalid input');
+      if (!str.startsWith('[') || !str.endsWith(']')) throw new SyntaxError('Invalid input');
       var values = str.substring(1, str.length - 1).split(',');
+      if (values.length !== 3) throw new SyntaxError('Invalid input: 3 values expected');
       return new Coordinate3D(Number(values[0].trim()), Number(values[1].trim()), Number(values[2].trim()));
     }
   }]);
@@ -765,7 +776,7 @@ var Level2D = exports.Level2D = /*#__PURE__*/function (_Level2) {
    * Constructs a 2D Level.
    * @constructs Level2D
    * @param {Map<string, any>|Object.<string, any>} [headers] The headers of the level 
-   * @param {Set<LevelObject>} [blocks] The blocks in the level
+   * @param {Set<LevelObject>|LevelObject[]} [blocks] The blocks in the level
    */
   function Level2D(headers, blocks) {
     var _this;
@@ -781,7 +792,9 @@ var Level2D = exports.Level2D = /*#__PURE__*/function (_Level2) {
         _this.headers.set(key, value);
       }
     }
-    if (blocks) _this.blocks = blocks;
+    if (blocks) {
+      if (blocks instanceof Set) _this.blocks = blocks;else _this.blocks = new Set(blocks);
+    }
     return _this;
   }
 
@@ -877,8 +890,8 @@ var Level3D = exports.Level3D = /*#__PURE__*/function (_Level3) {
   /**
    * Constructs a 3D Level.
    * @constructs Level3D
-   * @param {Map<string, any>|Object.<string, any>} headers 
-   * @param {Set<LevelObject>} blocks 
+   * @param {Map<string, any>|Object.<string, any>} [headers] The headers of the level 
+   * @param {Set<LevelObject>|LevelObject[]} [blocks] The blocks in the level
    */
   function Level3D(headers, blocks) {
     var _this2;
@@ -894,7 +907,7 @@ var Level3D = exports.Level3D = /*#__PURE__*/function (_Level3) {
         _this2.headers.set(key, value);
       }
     }
-    if (blocks) _this2.blocks = blocks;
+    if (blocks) if (blocks instanceof Set) _this2.blocks = blocks;else _this2.blocks = new Set(blocks);
     return _this2;
   }
 
@@ -925,4 +938,311 @@ var Level3D = exports.Level3D = /*#__PURE__*/function (_Level3) {
   }]);
 }(Level);
 
-},{"./block.js":2,"./coordinate.js":4}]},{},[1]);
+},{"./block.js":2,"./coordinate.js":4}],6:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.parseLevel = parseLevel;
+exports.read2DPoints = read2DPoints;
+exports.read3DPoints = read3DPoints;
+exports.readBlock = readBlock;
+exports.readHeaders = readHeaders;
+exports.readLine = readLine;
+exports.readRawBlock = readRawBlock;
+exports.roll = roll;
+exports.split = split;
+var _coordinate = require("./coordinate.js");
+var _block = require("./block.js");
+var _level = require("./level.js");
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+// Export
+
+function parseLevel(level) {
+  var _split = split(level),
+    _split2 = _slicedToArray(_split, 2),
+    headers0 = _split2[0],
+    blocks0 = _split2[1];
+  var headers = readHeaders(headers0);
+  var is2D = headers.get('type') == 2;
+  var spawn = headers.get('spawn');
+  if (!spawn || spawn === 'default') headers.set('spawn', is2D ? '[0, 0]' : '[0, 0, 0]');
+  if (!headers.get('scroll')) headers.set('scroll', 'none');
+  var blocks = new Set();
+  var _iterator = _createForOfIteratorHelper(blocks0),
+    _step;
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var line = _step.value;
+      if (line === 'end') break;
+      var _readLine = readLine(line, !is2D),
+        _readLine2 = _slicedToArray(_readLine, 2),
+        block = _readLine2[0],
+        points = _readLine2[1];
+      if (!block || !points) continue;
+      var _iterator2 = _createForOfIteratorHelper(points),
+        _step2;
+      try {
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var point = _step2.value;
+          blocks.add(new _block.LevelObject(block, point));
+        }
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
+      }
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+  if (is2D) return new _level.Level2D(headers, blocks);
+  return new _level.Level3D(headers, blocks);
+}
+
+// Internal
+
+/**
+ * @private
+ * @param {string} level
+ * @returns {string[][]}
+ */
+function split(level) {
+  var _level$split = level.split('\n---'),
+    _level$split2 = _slicedToArray(_level$split, 2),
+    headers = _level$split2[0],
+    blocks = _level$split2[1];
+  return [headers.split('\n'), blocks.split('\n')];
+}
+
+/**
+ * @private
+ * @param {Map<any, number>} map 
+ * @returns {any}
+ */
+function roll(map) {
+  var sum = Array.from(map.values()).reduce(function (a, b) {
+    return a + b;
+  }, 0);
+  if (sum < 1) throw new SyntaxError("Invalid Probabilities: ".concat(sum));
+  var t;
+  var r = Math.random();
+  var cumulative = 0;
+  var _iterator3 = _createForOfIteratorHelper(map),
+    _step3;
+  try {
+    for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+      var _step3$value = _slicedToArray(_step3.value, 2),
+        key = _step3$value[0],
+        value = _step3$value[1];
+      cumulative += value;
+      if (r < cumulative / sum) {
+        t = key;
+        break;
+      }
+    }
+  } catch (err) {
+    _iterator3.e(err);
+  } finally {
+    _iterator3.f();
+  }
+  return t;
+}
+
+/**
+ * @private
+ * @param {string[]} headers
+ * @returns {Map<string, string>}
+ */
+function readHeaders(headers) {
+  var map = new Map();
+  var _iterator4 = _createForOfIteratorHelper(headers),
+    _step4;
+  try {
+    for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+      var s = _step4.value;
+      if (!s.startsWith('@')) throw new SyntaxError("'Invalid header; does not stard with @: ".concat(s));
+      var _s$split = s.split(/\s([\s\S]*)/),
+        _s$split2 = _slicedToArray(_s$split, 2),
+        key = _s$split2[0],
+        value = _s$split2[1];
+      map.set(key.slice(1), value);
+    }
+  } catch (err) {
+    _iterator4.e(err);
+  } finally {
+    _iterator4.f();
+  }
+  if (!map.has('type')) throw new SyntaxError('Missing @type header');
+  if (map.get('type') != '2' && map.get('type') != '3') throw new SyntaxError('Invalid @type header');
+  if (!map.has('spawn')) throw new SyntaxError('Missing @spawn header');
+  return map;
+}
+
+/**
+ * @private
+ * @param {string} input 
+ * @returns {Set<Coordinate2D>}
+ */
+function read2DPoints(input) {
+  var points = new Set();
+  var inputs = input.split(/\*/);
+  var _iterator5 = _createForOfIteratorHelper(inputs),
+    _step5;
+  try {
+    for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+      var s0 = _step5.value;
+      var s = s0.trim();
+      if (!s) return;
+      if (s.startsWith('(') && s.endsWith(']')) {
+        var _split3 = s.split(/\^/);
+        var coords = _split3[1].replace(/[\[\]\s]/g, "").split(/,/);
+        var matrix = _split3[0].replace(/[()\s]/g, "").split(/,/);
+        if (coords.length !== 2) throw new SyntaxError("Invalid 2D point: ".concat(s0));
+        if (matrix.length !== 4) throw new SyntaxError("Invalid 2D matrix: ".concat(s0));
+        var cx = parseFloat(coords[0]),
+          cy = parseFloat(coords[1]);
+        var x1 = parseInt(matrix[0]),
+          x2 = parseInt(matrix[1]);
+        var y1 = parseInt(matrix[2]),
+          y2 = parseInt(matrix[3]);
+        for (var x = x1; x <= x2; x++) for (var y = y1; y <= y2; y++) points.add(new _coordinate.Coordinate2D(cx + x, cy + y));
+      } else points.add(_coordinate.Coordinate2D.fromString(s));
+    }
+  } catch (err) {
+    _iterator5.e(err);
+  } finally {
+    _iterator5.f();
+  }
+  return points;
+}
+
+/**
+ * @private
+ * @param {string} input 
+ * @returns {Set<Coordinate3D>} 
+ */
+function read3DPoints(input) {
+  var points = new Set();
+  var inputs = input.split(/\*/);
+  var _iterator6 = _createForOfIteratorHelper(inputs),
+    _step6;
+  try {
+    for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
+      var s0 = _step6.value;
+      var s = s0.trim();
+      if (!s) return;
+      if (s.startsWith('(') && s.endsWith(']')) {
+        var _split4 = s.split(/\^/);
+        var coords = _split4[1].replace(/[\[\]\s]/g, "").split(/,/);
+        var matrix = _split4[0].replace(/[()\s]/g, "").split(/,/);
+        if (coords.length !== 3) throw new SyntaxError("Invalid 2D point: ".concat(s0));
+        if (matrix.length !== 6) throw new SyntaxError("Invalid 2D matrix: ".concat(s0));
+        var cx = parseFloat(coords[0]),
+          cy = parseFloat(coords[1]),
+          cz = parseFloat(coords[2]);
+        var x1 = parseInt(matrix[0]),
+          x2 = parseInt(matrix[1]);
+        var y1 = parseInt(matrix[2]),
+          y2 = parseInt(matrix[3]);
+        var z1 = parseInt(matrix[4]),
+          z2 = parseInt(matrix[5]);
+        for (var x = x1; x <= x2; x++) for (var y = y1; y <= y2; y++) for (var z = z1; z <= z2; z++) points.add(new _coordinate.Coordinate3D(cx + x, cy + y, cz + z));
+      } else points.add(_coordinate.Coordinate3D.fromString(s));
+    }
+  } catch (err) {
+    _iterator6.e(err);
+  } finally {
+    _iterator6.f();
+  }
+  return points;
+}
+
+/**
+ * @private
+ * @param {string} input 
+ * @param {boolean} threeD
+ * @returns {Array.<any>}
+ */
+function readLine(input) {
+  var threeD = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  if (!input) return [];
+  var split = input.replace(/\s/g, "").split(/:/);
+  var block = readBlock(split[0]);
+  if (!block) return [];
+  var points = !threeD ? read2DPoints(split[1]) : read3DPoints(split[1]);
+  return [block, points];
+}
+
+/**
+ * @private
+ * @param {string} line 
+ * @returns {Block}
+ */
+function readBlock(line) {
+  if (line.startsWith('{') && line.endsWith('}')) {
+    var blocks = line.replace(/[{}]/g, "").split(/,/);
+    var l = blocks.length;
+    var blockToChance = new Map();
+    var _iterator7 = _createForOfIteratorHelper(blocks),
+      _step7;
+    try {
+      for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
+        var s = _step7.value;
+        var _s$split3 = s.split(/=/, 2),
+          _s$split4 = _slicedToArray(_s$split3, 2),
+          block = _s$split4[0],
+          chance = _s$split4[1];
+        var v = parseFloat(chance);
+        if (v) blockToChance.set(readRawBlock(block), v);else blockToChance.set(readRawBlock(block), 1 / l);
+      }
+    } catch (err) {
+      _iterator7.e(err);
+    } finally {
+      _iterator7.f();
+    }
+    return roll(blockToChance);
+  } else return readRawBlock(line);
+}
+
+/**
+ * @private
+ * @param {string} input 
+ * @returns {Block}
+ */
+function readRawBlock(input) {
+  if (!input) return null;
+  var split = input.replace(/[\s\>]/, "").split(/\</);
+  var name = split[0].trim();
+  if (split.length < 2) return new _block.Block(name);
+  var properties = new Map();
+  var rawProperties = split[1].split(/,/);
+  var _iterator8 = _createForOfIteratorHelper(rawProperties),
+    _step8;
+  try {
+    for (_iterator8.s(); !(_step8 = _iterator8.n()).done;) {
+      var s = _step8.value;
+      var _s$split5 = s.split(/=/),
+        _s$split6 = _slicedToArray(_s$split5, 2),
+        key = _s$split6[0],
+        value = _s$split6[1];
+      properties.set(key, value);
+    }
+  } catch (err) {
+    _iterator8.e(err);
+  } finally {
+    _iterator8.f();
+  }
+  return new _block.Block(name, properties);
+}
+
+},{"./block.js":2,"./coordinate.js":4,"./level.js":5}]},{},[1]);
