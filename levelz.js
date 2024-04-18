@@ -965,6 +965,12 @@ function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" !=
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 // Export
 
+/**
+ * Parses a LevelZ Level.
+ * @param {string} level The level input.
+ * @returns {Level} The parsed level.
+ * @throws {SyntaxError} if the level is invalid
+ */
 function parseLevel(level) {
   var _split = split(level),
     _split2 = _slicedToArray(_split, 2),
