@@ -173,7 +173,7 @@ export function read3DPoints(input) {
  * @private
  * @param {string} input 
  * @param {boolean} threeD
- * @returns {[Block, Set<Coordinate2D> | Set<Coordinate3D>]}
+ * @returns {Array.<any>}
  */
 export function readLine(input, threeD = false) {
     if (!input) return [];
