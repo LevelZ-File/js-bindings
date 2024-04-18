@@ -16,3 +16,7 @@ export { default as Scroll } from './src/level.js'
 
 // LevelBuilder
 export { default as LevelBuilder } from './src/builder.js'
+
+// Parser
+
+export { default as parseLevel } from './src/parser.js'
