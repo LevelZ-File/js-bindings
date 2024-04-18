@@ -1,9 +1,15 @@
 import { Coordinate, Coordinate2D, Coordinate3D } from './coordinate.js'
 import { Block, LevelObject } from './block.js'
-import { Level2D, Level3D } from './level.js'
+import { Level, Level2D, Level3D } from './level.js'
 
 // Export
 
+/**
+ * Parses a LevelZ Level.
+ * @param {string} level The level input.
+ * @returns {Level} The parsed level.
+ * @throws {SyntaxError} if the level is invalid
+ */
 export function parseLevel(level) {
     const [headers0, blocks0] = split(level)
     
