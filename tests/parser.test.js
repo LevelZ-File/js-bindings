@@ -1,5 +1,6 @@
 import { test, expect, describe } from '@jest/globals'
 import * as parser from '../src/parser.js'
+import * as fs from 'fs'
 
 describe('parser', () => {
     test('read headers', () => {
@@ -119,5 +120,19 @@ describe('parser', () => {
         expect(p2.headers.get('type')).toBe('3')
         expect(p2.headers.get('spawn')).toBe('[-1, 0, 2]')
         expect(p2.blocks.size).toBe(68)
+    })
+
+    test('read level (examples)', () => {
+        const l1 = fs.readFileSync('tests/lib/examples/2D/grasslands/1.lvlz', { encoding: 'utf-8' })
+        const p1 = parser.parseLevel(l1.toString())
+        expect(p1.headers.get('type')).toBe('2')
+        expect(p1.spawn.toString()).toBe('[0, 0]')
+        expect(p1.blocks.size).toBe(10)
+
+        const l2 = fs.readFileSync('tests/lib/examples/3D/grasslands/1.lvlz', { encoding: 'utf-8' })
+        const p2 = parser.parseLevel(l2.toString())
+        expect(p2.headers.get('type')).toBe('3')
+        expect(p2.spawn.toString()).toBe('[0, 0, 0]')
+        expect(p2.blocks.size).toBe(222)
     })
 })
