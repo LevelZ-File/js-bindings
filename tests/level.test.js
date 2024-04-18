@@ -1,7 +1,7 @@
 import { test, expect, describe } from '@jest/globals'
 import { Level, Level2D, Level3D, Scroll } from '../src/level.js'
 import { Coordinate2D, Coordinate3D } from '../src/coordinate.js'
-import { Block, LevelObject } from '../src/block.js'
+import { LevelObject } from '../src/block.js'
 
 describe('level', () => {
     test('abstract', () => {
@@ -19,33 +19,44 @@ describe('level', () => {
     })
 
     test('2D', () => {
-        let l = new Level2D()
-        l.spawn = new Coordinate2D(0, 0)
-        expect(l.spawn.x).toBe(0)
-        expect(l.spawn.y).toBe(0)
+        let l1 = new Level2D()
+        l1.spawn = new Coordinate2D(0, 0)
+        expect(l1.spawn.x).toBe(0)
+        expect(l1.spawn.y).toBe(0)
 
-        l.headers.set('spawn', new Coordinate2D(1, 1))
-        expect(l.spawn.x).toBe(1)
-        expect(l.spawn.y).toBe(1)
+        l1.headers.set('spawn', new Coordinate2D(1, 1))
+        expect(l1.spawn.x).toBe(1)
+        expect(l1.spawn.y).toBe(1)
 
-        l.scroll = Scroll.HORIZONTAL_LEFT
-        expect(l.scroll).toBe(Scroll.HORIZONTAL_LEFT)
+        l1.scroll = Scroll.HORIZONTAL_LEFT
+        expect(l1.scroll).toBe(Scroll.HORIZONTAL_LEFT)
 
-        l.scroll = Scroll.VERTICAL_DOWN
-        expect(l.scroll).toBe(Scroll.VERTICAL_DOWN)
+        l1.scroll = Scroll.VERTICAL_DOWN
+        expect(l1.scroll).toBe(Scroll.VERTICAL_DOWN)
+
+        let l2 = new Level2D({"type": "2", "spawn": Coordinate2D.fromString("[-2.5, 2.5]")})
+        expect(l2.dimension).toBe(2)
+        expect(l2.spawn.x).toBe(-2.5)
+        expect(l2.spawn.y).toBe(2.5)
     })
 
     test('3D', () => {
-        let l = new Level3D()
-        l.spawn = new Coordinate3D(0, 2, 0)
-        expect(l.spawn.x).toBe(0)
-        expect(l.spawn.y).toBe(2)
-        expect(l.spawn.z).toBe(0)
+        let l1 = new Level3D()
+        l1.spawn = new Coordinate3D(0, 2, 0)
+        expect(l1.spawn.x).toBe(0)
+        expect(l1.spawn.y).toBe(2)
+        expect(l1.spawn.z).toBe(0)
 
-        l.headers.set('spawn', new Coordinate3D(1, 1, 4))
-        expect(l.spawn.x).toBe(1)
-        expect(l.spawn.y).toBe(1)
-        expect(l.spawn.z).toBe(4)
+        l1.headers.set('spawn', new Coordinate3D(1, 1, 4))
+        expect(l1.spawn.x).toBe(1)
+        expect(l1.spawn.y).toBe(1)
+        expect(l1.spawn.z).toBe(4)
+
+        let l2 = new Level3D({"type": "3", "spawn": Coordinate3D.fromString("[-4, 7, 11]")})
+        expect(l2.dimension).toBe(3)
+        expect(l2.spawn.x).toBe(-4)
+        expect(l2.spawn.y).toBe(7)
+        expect(l2.spawn.z).toBe(11)
     })
 
     test('toString 2D half', () => {

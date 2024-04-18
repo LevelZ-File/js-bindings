@@ -1,5 +1,5 @@
-import { Block, Dimension, LevelObject } from "./block.js";
-import { Coordinate, Coordinate2D, Coordinate3D } from "./coordinate.js";
+import { Block, LevelObject } from "./block.js";
+import { Dimension, Coordinate, Coordinate2D, Coordinate3D } from "./coordinate.js";
 import { Level, Level2D, Level3D } from "./level.js";
 
 /**

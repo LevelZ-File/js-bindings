@@ -1,5 +1,5 @@
 import { test, expect, describe } from '@jest/globals'
-import { Coordinate2D, Coordinate3D } from '../src/coordinate.js'
+import { Coordinate, Coordinate2D, Coordinate3D } from '../src/coordinate.js'
 
 describe('coordinates', () => {
     test('construct 2D', () => {
@@ -37,10 +37,12 @@ describe('coordinates', () => {
         let c = Coordinate2D.fromString('[2,3]')
         expect(c.x).toBe(2)
         expect(c.y).toBe(3)
+        expect(c.magnitude).toBe(Math.sqrt(13))
 
         c = Coordinate2D.fromString('[-4,11]')
         expect(c.x).toBe(-4)
         expect(c.y).toBe(11)
+        expect(c.magnitude).toBe(Math.sqrt(137))
     })
 
     test('fromString 3D', () => {
@@ -53,5 +55,21 @@ describe('coordinates', () => {
         expect(c.x).toBe(-4)
         expect(c.y).toBe(19)
         expect(c.z).toBe(-17)
+    })
+
+    test('invalid parent', () => {
+        expect(() => new Coordinate()).toThrow(TypeError)
+    })
+
+    test('invalid 2D', () => {
+        expect(() => Coordinate2D.fromString('2,3')).toThrow(SyntaxError)
+        expect(() => Coordinate2D.fromString('[2,3,4]')).toThrow(SyntaxError)
+        expect(() => Coordinate2D.fromString('[2,3,4,5]')).toThrow(SyntaxError)
+    })
+
+    test('invalid 3D', () => {
+        expect(() => Coordinate3D.fromString('2,3')).toThrow(SyntaxError)
+        expect(() => Coordinate3D.fromString('[2,3]')).toThrow(SyntaxError)
+        expect(() => Coordinate3D.fromString('[2,3,4,5]')).toThrow(SyntaxError)
     })
 })

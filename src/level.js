@@ -96,7 +96,7 @@ export class Level2D extends Level {
      * Constructs a 2D Level.
      * @constructs Level2D
      * @param {Map<string, any>|Object.<string, any>} [headers] The headers of the level 
-     * @param {Set<LevelObject>} [blocks] The blocks in the level
+     * @param {Set<LevelObject>|LevelObject[]} [blocks] The blocks in the level
      */
     constructor(headers, blocks) {
         super(Dimension.TWO)
@@ -107,7 +107,12 @@ export class Level2D extends Level {
             else for (const [key, value] of Object.entries(headers)) 
                 this.headers.set(key, value)
         }
-        if (blocks) this.blocks = blocks
+        if (blocks) {
+            if (blocks instanceof Set)
+                this.blocks = blocks
+            else 
+                this.blocks = new Set(blocks)
+        }
     }
 
     /**
@@ -209,8 +214,8 @@ export class Level3D extends Level {
     /**
      * Constructs a 3D Level.
      * @constructs Level3D
-     * @param {Map<string, any>|Object.<string, any>} headers 
-     * @param {Set<LevelObject>} blocks 
+     * @param {Map<string, any>|Object.<string, any>} [headers] The headers of the level 
+     * @param {Set<LevelObject>|LevelObject[]} [blocks] The blocks in the level
      */
     constructor(headers, blocks) {
         super(Dimension.THREE)
@@ -221,7 +226,11 @@ export class Level3D extends Level {
             else for (const [key, value] of Object.entries(headers)) 
                 this.headers.set(key, value)
         }
-        if (blocks) this.blocks = blocks
+        if (blocks) 
+            if (blocks instanceof Set)
+                this.blocks = blocks
+            else
+                this.blocks = new Set(blocks)
     }
 
     /**

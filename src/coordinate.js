@@ -114,10 +114,14 @@ export class Coordinate2D extends Coordinate {
      * @returns {Coordinate2D} The 2D Coordinate
      */
     static fromString(str) {
-        if (typeof(str) !== 'string')
+        if (!str || typeof(str) !== 'string')
             throw new SyntaxError('Invalid input')
+
+        if (!str.startsWith('[') || !str.endsWith(']')) throw new SyntaxError('Invalid input')
         
         let values = str.substring(1, str.length - 1).split(',')
+        if (values.length !== 2) throw new SyntaxError('Invalid input: 2 values expected')
+
         return new Coordinate2D(Number(values[0].trim()), Number(values[1].trim()))
     }
 
@@ -198,10 +202,14 @@ export class Coordinate3D extends Coordinate {
      * @returns {Coordinate3D} The 3D Coordinate
      */
     static fromString(str) {
-        if (typeof(str) !== 'string')
+        if (!str || typeof(str) !== 'string')
             throw new SyntaxError('Invalid input')
         
+        if (!str.startsWith('[') || !str.endsWith(']')) throw new SyntaxError('Invalid input')
+
         let values = str.substring(1, str.length - 1).split(',')
+        if (values.length !== 3) throw new SyntaxError('Invalid input: 3 values expected')
+
         return new Coordinate3D(Number(values[0].trim()), Number(values[1].trim()), Number(values[2].trim()))
     }
 
