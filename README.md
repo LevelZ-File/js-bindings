@@ -1,11 +1,8 @@
 # levelz-js
 
 ![GitHub License](https://img.shields.io/github/license/LevelZ-File/js-bindings)
-
 [![GitHub package.json version](https://img.shields.io/github/package-json/v/LevelZ-File/js-bindings)](https://www.npmjs.com/package/levelz-js)
-
 [![Static Badge](https://img.shields.io/badge/documentation-jsdoc-blue)](https://levelz-file.github.io/js-bindings)
-
 ![NPM Downloads](https://img.shields.io/npm/d18m/levelz-js)
 
 > JavaScript Bindings for the LevelZ File Format
