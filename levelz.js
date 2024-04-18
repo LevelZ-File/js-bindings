@@ -99,10 +99,6 @@ function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key i
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 /**
- * Represents a Block's properties.
- * @typedef {Map<string, any>|Object} BlockProperties
- */
-/**
  * Represents a Block in a level.
  * @classdesc Block in LevelZ World
  */
@@ -110,7 +106,7 @@ var Block = exports.Block = /*#__PURE__*/function () {
   /**
    * Constructs a new Block.
    * @param {string} name Name of the block
-   * @param {BlockProperties} [properties] Properties of the block
+   * @param {Map<string, any>|Object.<string, any>} [properties] Properties of the block
    */
   function Block(name, properties) {
     var _this = this;
@@ -141,6 +137,8 @@ var Block = exports.Block = /*#__PURE__*/function () {
   /**
    * Returns the string representation of this block.
    * @returns {string} The string representation of this block.
+   * @example
+   * grass<snowy=false>
    */
   return _createClass(Block, [{
     key: "toString",
@@ -175,8 +173,12 @@ var LevelObject = exports.LevelObject = /*#__PURE__*/function () {
   /**
    * Constructs a new LevelObject.
    * @constructor
-   * @param {Block} block The Block
-   * @param {Coordinate} coordinate The Coordinate
+   * @param {Block|string} block The Block
+   * @param {Coordinate|number[]} coordinate The Coordinate
+   * @example
+   * new LevelObject(new Block('block'), new Coordinate2D(1, 2))
+   * @example
+   * new LevelObject('block', [1, 2])
    */
   function LevelObject(block, coordinate) {
     _classCallCheck(this, LevelObject);
@@ -222,6 +224,8 @@ var LevelObject = exports.LevelObject = /*#__PURE__*/function () {
     /**
      * Returns the string representation of this LevelObject.
      * @returns {string} The string representation of this LevelObject.
+     * @example
+     * block<property=value>: [x, y]
      */
   }, {
     key: "toString",
@@ -320,11 +324,11 @@ var LevelBuilder = exports.LevelBuilder = /*#__PURE__*/function () {
     /**
      * Adds a Block to the level.
      * @param {string} name The name of the block.
-     * @param {Coordinate} coordinate The coordinate of the block.
-     * @param {Map<string, any>} properties The properties of the block.
+     * @param {Coordinate|number[]} coordinate The coordinate of the block.
+     * @param {Map<string, any>|Object.<string, any>} properties The properties of the block.
      */
     function block(name, coordinate, properties) {
-      this.block(new _block2.LevelObject(name, coordinate, properties));
+      this.block(new _block2.LevelObject(new _block2.Block(name, properties), coordinate));
     }
 
     /**
@@ -385,6 +389,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 /**
+ * 2D or 3D space.
  * @typedef {2|3} Dimension
  */
 
@@ -641,10 +646,6 @@ function _classPrivateFieldGet(s, a) { return s.get(_assertClassBrand(s, a)); }
 function _classPrivateFieldSet(s, a, r) { return s.set(_assertClassBrand(s, a), r), r; }
 function _assertClassBrand(e, t, n) { if ("function" == typeof e ? e === t : e.has(t)) return arguments.length < 3 ? t : n; throw new TypeError("Private element is not present on this object"); }
 /**
- * Represents a Level's Headers.
- * @typedef {Map<string, any>|Object} Headers
- */
-/**
  * Represents a LevelZ Level.
  * @abstract
  * @classdesc Abstract Level for representation purposes
@@ -763,7 +764,7 @@ var Level2D = exports.Level2D = /*#__PURE__*/function (_Level2) {
   /**
    * Constructs a 2D Level.
    * @constructs Level2D
-   * @param {Headers} [headers] The headers of the level 
+   * @param {Map<string, any>|Object.<string, any>} [headers] The headers of the level 
    * @param {Set<LevelObject>} [blocks] The blocks in the level
    */
   function Level2D(headers, blocks) {
@@ -876,7 +877,7 @@ var Level3D = exports.Level3D = /*#__PURE__*/function (_Level3) {
   /**
    * Constructs a 3D Level.
    * @constructs Level3D
-   * @param {Headers} headers 
+   * @param {Map<string, any>|Object.<string, any>} headers 
    * @param {Set<LevelObject>} blocks 
    */
   function Level3D(headers, blocks) {
@@ -910,7 +911,7 @@ var Level3D = exports.Level3D = /*#__PURE__*/function (_Level3) {
 
     /**
      * Sets the spawn point for the level.
-     * @param {Coordinate3D} coordinate The coordinate to spawn the object at.
+     * @param {Coordinate3D|number[]} coordinate The coordinate to spawn the object at.
      */,
     set: function set(coordinate) {
       if (coordinate instanceof Array) {
