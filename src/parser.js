@@ -209,9 +209,18 @@ export function readLine(input, threeD = false) {
  */
 export function readBlock(line) {
     if (line.startsWith('{') && line.endsWith('}')) {
-        const blocks = line.replace(/[{}]/g, "").split(/,/)
-        const l = blocks.length
+        const block0 = line.replace(/[{}]/g, "")
+        
+        let blocks;
+        if (line.contains('>,')) {
+            blocks = block0.split(/>,/g)
+            for (let i = 0; i < blocks.length; i++)
+                if (blocks[i].contains('<'))
+                    blocks[i] = `${blocks[i]}>`
+        } else
+            blocks = block0.split(/,/g)
 
+        const l = blocks.length
         const blockToChance = new Map()
         for (const s of blocks) {
             const [block, chance] = s.split(/=/, 2)
