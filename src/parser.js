@@ -212,10 +212,10 @@ export function readBlock(line) {
         const block0 = line.replace(/[{}]/g, "")
         
         let blocks;
-        if (line.contains('>,')) {
+        if (line.includes('>,')) {
             blocks = block0.split(/>,/g)
             for (let i = 0; i < blocks.length; i++)
-                if (blocks[i].contains('<'))
+                if (blocks[i].includes('<'))
                     blocks[i] = `${blocks[i]}>`
         } else
             blocks = block0.split(/,/g)
