@@ -1,6 +1,6 @@
 {
   "name": "levelz-js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "JavaScript Bindings for the LevelZ File Format",
   "main": "index.js",
   "scripts": {
