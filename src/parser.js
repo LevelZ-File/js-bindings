@@ -9,6 +9,15 @@ import { Level, Level2D, Level3D } from './level.js'
  * @param {string} level The level input.
  * @returns {Level} The parsed level.
  * @throws {SyntaxError} if the level is invalid
+ * @example
+ * // Read from file
+ * import * as fs from 'fs'
+ * 
+ * fs.readFile('level.lvlz', 'utf8', (err, data) => {
+ *    if (err) throw err
+ *    const level = parseLevel(data)
+ *    console.log(level)
+ * })
  */
 export function parseLevel(level) {
     const [headers0, blocks0] = split(level)

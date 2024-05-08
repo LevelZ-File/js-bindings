@@ -22,6 +22,9 @@ export class Block {
      * Constructs a new Block.
      * @param {string} name Name of the block
      * @param {Map<string, any>|Object.<string, any>} [properties] Properties of the block
+     * @example
+     * new Block('grass', new Map([['snowy', false]]))
+     * new Block('grass', {'snowy': false})
      */
     constructor(name, properties) {
         this.name = name

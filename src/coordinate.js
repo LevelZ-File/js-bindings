@@ -70,6 +70,8 @@ export class Coordinate2D extends Coordinate {
      * @constructor
      * @param {number} x The X Value
      * @param {number} y The Y Value
+     * @example
+     * new Coordinate2D(1, 2)
      */
     constructor(x, y) {
         super()
@@ -156,7 +158,9 @@ export class Coordinate3D extends Coordinate {
      * Constructs a new 3D Coordinate.
      * @param {number} x The X Value
      * @param {number} y The Y Value
-     * @param {number} z The Z Value 
+     * @param {number} z The Z Value
+     * @example
+     * new Coordinate3D(1, 2, 3) 
      */
     constructor(x, y, z) {
         super()

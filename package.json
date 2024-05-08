@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage",
-    "doc": "jsdoc src/* -d docs",
+    "doc": "jsdoc src/* -d docs -R README.md",
     "compile": "bash jscompile.sh"
   },
   "repository": {
