@@ -9,6 +9,15 @@ import { Level, Level2D, Level3D } from './level.js'
  * @param {string} level The level input.
  * @returns {Level} The parsed level.
  * @throws {SyntaxError} if the level is invalid
+ * @example
+ * // Read from file
+ * import * as fs from 'fs'
+ * 
+ * fs.readFile('level.lvlz', 'utf8', (err, data) => {
+ *    if (err) throw err
+ *    const level = parseLevel(data)
+ *    console.log(level)
+ * })
  */
 export function parseLevel(level) {
     const [headers0, blocks0] = split(level)
@@ -200,9 +209,18 @@ export function readLine(input, threeD = false) {
  */
 export function readBlock(line) {
     if (line.startsWith('{') && line.endsWith('}')) {
-        const blocks = line.replace(/[{}]/g, "").split(/,/)
-        const l = blocks.length
+        const block0 = line.replace(/[{}]/g, "")
+        
+        let blocks;
+        if (line.includes('>,')) {
+            blocks = block0.split(/>,/g)
+            for (let i = 0; i < blocks.length; i++)
+                if (blocks[i].includes('<'))
+                    blocks[i] = `${blocks[i]}>`
+        } else
+            blocks = block0.split(/,/g)
 
+        const l = blocks.length
         const blockToChance = new Map()
         for (const s of blocks) {
             const [block, chance] = s.split(/=/, 2)

@@ -38,6 +38,19 @@ describe('level', () => {
         expect(l2.dimension).toBe(2)
         expect(l2.spawn.x).toBe(-2.5)
         expect(l2.spawn.y).toBe(2.5)
+
+        let l3o = [
+            new LevelObject('grass', [0, 0]),
+            new LevelObject('stone', [1, 1]),
+            new LevelObject('stone', [0, 2])
+        ]
+        let l3 = new Level2D({"type": "2", "spawn": Coordinate2D.fromString("[0, 0]")}, l3o)
+        expect(l3.dimension).toBe(2)
+        expect(l3.spawn.x).toBe(0)
+        expect(l3.spawn.y).toBe(0)
+
+        expect(l3.coordinates.length).toBe(3)
+        expect(l3.rawBlocks.length).toBe(3)
     })
 
     test('3D', () => {

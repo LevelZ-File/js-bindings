@@ -139,7 +139,7 @@ export class Level2D extends Level {
      * @returns {Coordinate2D} The spawn point of the level.
      */
     get spawn() {
-        return this.headers.get('spawn')
+        return super.spawn
     }
 
     /**
@@ -238,7 +238,7 @@ export class Level3D extends Level {
      * @returns {Coordinate3D} The spawn point of the level.
      */
     get spawn() {
-        return this.headers.get('spawn')
+        return super.spawn
     }
 
     /**

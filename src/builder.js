@@ -30,6 +30,8 @@ export class LevelBuilder {
      * Constructs a new Level Builder.
      * @constructs LevelBuilder
      * @param {Dimension} dimension The dimension for the level.
+     * @example
+     * new LevelBuilder(Dimension.TWO)
      */
     constructor(dimension) {
         if (dimension !== 2 && dimension !== 3)
@@ -102,6 +104,8 @@ export class LevelBuilder {
     /**
      * Builds the level.
      * @returns {Level} The built level.
+     * @example
+     * LevelBuilder.create2D().block('grass', [0, 0]).build()
      */
     build() {
         if (this.dimension === 2) return new Level2D(this.headers, this.blocks)
