@@ -114,6 +114,9 @@ var Block = exports.Block = /*#__PURE__*/function () {
    * Constructs a new Block.
    * @param {string} name Name of the block
    * @param {Map<string, any>|Object.<string, any>} [properties] Properties of the block
+   * @example
+   * new Block('grass', new Map([['snowy', false]]))
+   * new Block('grass', {'snowy': false})
    */
   function Block(name, properties) {
     var _this = this;
@@ -268,6 +271,8 @@ var LevelBuilder = exports.LevelBuilder = /*#__PURE__*/function () {
    * Constructs a new Level Builder.
    * @constructs LevelBuilder
    * @param {Dimension} dimension The dimension for the level.
+   * @example
+   * new LevelBuilder(Dimension.TWO)
    */
   function LevelBuilder(dimension) {
     _classCallCheck(this, LevelBuilder);
@@ -341,6 +346,8 @@ var LevelBuilder = exports.LevelBuilder = /*#__PURE__*/function () {
     /**
      * Builds the level.
      * @returns {Level} The built level.
+     * @example
+     * LevelBuilder.create2D().block('grass', [0, 0]).build()
      */
   }, {
     key: "build",
@@ -459,6 +466,8 @@ var Coordinate2D = exports.Coordinate2D = /*#__PURE__*/function (_Coordinate) {
    * @constructor
    * @param {number} x The X Value
    * @param {number} y The Y Value
+   * @example
+   * new Coordinate2D(1, 2)
    */
   function Coordinate2D(x, y) {
     var _this;
@@ -541,7 +550,9 @@ var Coordinate3D = exports.Coordinate3D = /*#__PURE__*/function (_Coordinate2) {
    * Constructs a new 3D Coordinate.
    * @param {number} x The X Value
    * @param {number} y The Y Value
-   * @param {number} z The Z Value 
+   * @param {number} z The Z Value
+   * @example
+   * new Coordinate3D(1, 2, 3) 
    */
   function Coordinate3D(x, y, z) {
     var _this2;
@@ -635,6 +646,8 @@ function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstruct
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function _get() { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get.bind(); } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(arguments.length < 3 ? target : receiver); } return desc.value; }; } return _get.apply(this, arguments); }
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
@@ -826,7 +839,7 @@ var Level2D = exports.Level2D = /*#__PURE__*/function (_Level2) {
   }, {
     key: "spawn",
     get: function get() {
-      return this.headers.get('spawn');
+      return _get(_getPrototypeOf(Level2D.prototype), "spawn", this);
     }
 
     /**
@@ -919,7 +932,7 @@ var Level3D = exports.Level3D = /*#__PURE__*/function (_Level3) {
   return _createClass(Level3D, [{
     key: "spawn",
     get: function get() {
-      return this.headers.get('spawn');
+      return _get(_getPrototypeOf(Level3D.prototype), "spawn", this);
     }
 
     /**
@@ -970,6 +983,15 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
  * @param {string} level The level input.
  * @returns {Level} The parsed level.
  * @throws {SyntaxError} if the level is invalid
+ * @example
+ * // Read from file
+ * import * as fs from 'fs'
+ * 
+ * fs.readFile('level.lvlz', 'utf8', (err, data) => {
+ *    if (err) throw err
+ *    const level = parseLevel(data)
+ *    console.log(level)
+ * })
  */
 function parseLevel(level) {
   var _split = split(level),
@@ -1196,7 +1218,12 @@ function readLine(input) {
  */
 function readBlock(line) {
   if (line.startsWith('{') && line.endsWith('}')) {
-    var blocks = line.replace(/[{}]/g, "").split(/,/);
+    var block0 = line.replace(/[{}]/g, "");
+    var blocks;
+    if (line.includes('>,')) {
+      blocks = block0.split(/>,/g);
+      for (var i = 0; i < blocks.length; i++) if (blocks[i].includes('<')) blocks[i] = "".concat(blocks[i], ">");
+    } else blocks = block0.split(/,/g);
     var l = blocks.length;
     var blockToChance = new Map();
     var _iterator7 = _createForOfIteratorHelper(blocks),
