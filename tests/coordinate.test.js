@@ -13,6 +13,7 @@ describe('coordinates', () => {
         c = new Coordinate2D(0, 0)
         expect(c.x).toBe(0)
         expect(c.y).toBe(0)
+        expect(c).toEqual(Coordinate2D.zero)
     })
 
     test('construct 3D', () => {
@@ -31,6 +32,11 @@ describe('coordinates', () => {
         expect(c.x).toBe(0)
         expect(c.y).toBe(-1)
         expect(c.z).toBe(0)
+
+        c = new Coordinate3D(0, 0, 0)
+        expect(c.x).toBe(0)
+        expect(c.y).toBe(0)
+        expect(c).toEqual(Coordinate3D.zero)
     })
 
     test('fromString 2D', () => {

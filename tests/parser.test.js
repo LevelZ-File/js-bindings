@@ -134,5 +134,17 @@ describe('parser', () => {
         expect(p2.headers.get('type')).toBe('3')
         expect(p2.spawn.toString()).toBe('[0, 0, 0]')
         expect(p2.blocks.size).toBe(222)
+
+        const l3 = fs.readFileSync('tests/lib/examples/3D/grasslands/3.lvlz', { encoding: 'utf-8' })
+        const p3 = parser.parseLevel(l3.toString())
+        expect(p3.headers.get('type')).toBe('3')
+        expect(p3.spawn.toString()).toBe('[0, 10, 0]')
+        expect(p3.blocks.size).toBe(35)
+
+        const l4 = fs.readFileSync('tests/lib/examples/2D/volcano/4.lvlz', { encoding: 'utf-8' })
+        const p4 = parser.parseLevel(l4.toString())
+        expect(p4.headers.get('type')).toBe('2')
+        expect(p4.spawn.toString()).toBe('[5, 1]')
+        expect(p4.blocks.size).toBe(26)
     })
 })
