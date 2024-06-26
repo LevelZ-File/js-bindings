@@ -34,9 +34,16 @@ export function parseLevel(level) {
 
     const blocks = new Set()
     for (const line of blocks0) {
+        if (!line) continue
         if (line === 'end') break
 
-        const [block, points] = readLine(line, !is2D)
+        const ci = line.indexOf('#')
+        const line0 = (ci > -1 ? line.slice(0, ci) : line).trim()
+
+        if (!line0) continue
+        if (line0 === 'end') break
+
+        const [block, points] = readLine(line0, !is2D)
         if (!block || !points) continue
 
         for (const point of points)
@@ -92,14 +99,14 @@ export function roll(map) {
 export function readHeaders(headers) {
     const map = new Map()
     for (const s of headers) {
-        if (!s.startsWith('@')) throw new SyntaxError(`'Invalid header; does not stard with @: ${s}`)
+        if (!s.startsWith('@')) throw new SyntaxError(`'Invalid header; does not start with @: ${s}`)
 
         const [key, value] = s.split(/\s(.*)/s)
-        map.set(key.slice(1), value)
+        map.set(key.slice(1), value.trim())
     }
 
     if (!map.has('type')) throw new SyntaxError('Missing @type header')
-    if (map.get('type') != '2' && map.get('type') != '3') throw new SyntaxError('Invalid @type header')
+    if (map.get('type') != '2' && map.get('type') != '3') throw new SyntaxError('Invalid @type header (found "' + map.get('type') + '")')
 
     if (!map.has('spawn')) throw new SyntaxError('Missing @spawn header')
 
