@@ -483,7 +483,7 @@ var Coordinate2D = exports.Coordinate2D = /*#__PURE__*/function (_Coordinate) {
      * @type {number}
      */
     _defineProperty(_this, "y", void 0);
-    if (typeof x !== 'number' || typeof y !== 'number') throw new SyntaxError('Invalid input');
+    if (isNaN(x) || isNaN(y)) throw new SyntaxError('Invalid input');
     _this.x = x;
     _this.y = y;
     return _this;
@@ -573,7 +573,7 @@ var Coordinate3D = exports.Coordinate3D = /*#__PURE__*/function (_Coordinate2) {
      * @type {number}
      */
     _defineProperty(_this2, "z", void 0);
-    if (typeof x !== 'number' || typeof y !== 'number' || typeof z !== 'number') throw new SyntaxError('Invalid input');
+    if (isNaN(x) || isNaN(y) || isNaN(z)) throw new SyntaxError('Invalid input');
     _this2.x = x;
     _this2.y = y;
     _this2.z = z;
@@ -1009,8 +1009,13 @@ function parseLevel(level) {
   try {
     for (_iterator.s(); !(_step = _iterator.n()).done;) {
       var line = _step.value;
+      if (!line) continue;
       if (line === 'end') break;
-      var _readLine = readLine(line, !is2D),
+      var ci = line.indexOf('#');
+      var line0 = (ci > -1 ? line.slice(0, ci) : line).trim();
+      if (!line0) continue;
+      if (line0 === 'end') break;
+      var _readLine = readLine(line0, !is2D),
         _readLine2 = _slicedToArray(_readLine, 2),
         block = _readLine2[0],
         points = _readLine2[1];
@@ -1098,12 +1103,12 @@ function readHeaders(headers) {
   try {
     for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
       var s = _step4.value;
-      if (!s.startsWith('@')) throw new SyntaxError("'Invalid header; does not stard with @: ".concat(s));
+      if (!s.startsWith('@')) throw new SyntaxError("'Invalid header; does not start with @: ".concat(s));
       var _s$split = s.split(/\s([\s\S]*)/),
         _s$split2 = _slicedToArray(_s$split, 2),
         key = _s$split2[0],
         value = _s$split2[1];
-      map.set(key.slice(1), value);
+      map.set(key.slice(1), value.trim());
     }
   } catch (err) {
     _iterator4.e(err);
@@ -1111,7 +1116,7 @@ function readHeaders(headers) {
     _iterator4.f();
   }
   if (!map.has('type')) throw new SyntaxError('Missing @type header');
-  if (map.get('type') != '2' && map.get('type') != '3') throw new SyntaxError('Invalid @type header');
+  if (map.get('type') != '2' && map.get('type') != '3') throw new SyntaxError('Invalid @type header (found "' + map.get('type') + '")');
   if (!map.has('spawn')) throw new SyntaxError('Missing @spawn header');
   return map;
 }
