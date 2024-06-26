@@ -75,9 +75,9 @@ export class Coordinate2D extends Coordinate {
      */
     constructor(x, y) {
         super()
-        if (typeof(x) !== 'number' || typeof(y) !== 'number')
+        if (isNaN(x) || isNaN(y))
             throw new SyntaxError('Invalid input')
-        
+
         this.x = x
         this.y = y
     }
@@ -164,7 +164,7 @@ export class Coordinate3D extends Coordinate {
      */
     constructor(x, y, z) {
         super()
-        if (typeof(x) !== 'number' || typeof(y) !== 'number' || typeof(z) !== 'number')
+        if (isNaN(x) || isNaN(y) || isNaN(z))
             throw new SyntaxError('Invalid input')
         
         this.x = x
