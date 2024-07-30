@@ -646,6 +646,7 @@ function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstruct
 function _possibleConstructorReturn(t, e) { if (e && ("object" == _typeof(e) || "function" == typeof e)) return e; if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined"); return _assertThisInitialized(t); }
 function _assertThisInitialized(e) { if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); return e; }
 function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function _superPropGet(t, e, r, o) { var p = _get(_getPrototypeOf(1 & o ? t.prototype : t), e, r); return 2 & o ? function (t) { return p.apply(r, t); } : p; }
 function _get() { return _get = "undefined" != typeof Reflect && Reflect.get ? Reflect.get.bind() : function (e, t, r) { var p = _superPropBase(e, t); if (p) { var n = Object.getOwnPropertyDescriptor(p, t); return n.get ? n.get.call(arguments.length < 3 ? e : r) : n.value; } }, _get.apply(null, arguments); }
 function _superPropBase(t, o) { for (; !{}.hasOwnProperty.call(t, o) && null !== (t = _getPrototypeOf(t));); return t; }
 function _getPrototypeOf(t) { return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) { return t.__proto__ || Object.getPrototypeOf(t); }, _getPrototypeOf(t); }
@@ -839,7 +840,7 @@ var Level2D = exports.Level2D = /*#__PURE__*/function (_Level2) {
   }, {
     key: "spawn",
     get: function get() {
-      return _get(_getPrototypeOf(Level2D.prototype), "spawn", this);
+      return _superPropGet(Level2D, "spawn", this, 1);
     }
 
     /**
@@ -932,7 +933,7 @@ var Level3D = exports.Level3D = /*#__PURE__*/function (_Level3) {
   return _createClass(Level3D, [{
     key: "spawn",
     get: function get() {
-      return _get(_getPrototypeOf(Level3D.prototype), "spawn", this);
+      return _superPropGet(Level3D, "spawn", this, 1);
     }
 
     /**
