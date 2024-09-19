@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Coordinate3D</title>
+    <title>JSDoc: Class: CoordinateMatrix3D</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: Coordinate3D</h1>
+    <h1 class="page-title">Class: CoordinateMatrix3D</h1>
 
     
 
@@ -28,9 +28,9 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Coordinate3D<span class="signature">(x, y, z)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>CoordinateMatrix3D<span class="signature">(minX, maxX, minY, maxY, minZ, maxZ, start)</span><span class="type-signature"></span></h2>
         
-            <div class="class-description">3D Coordinates in LevelZ</div>
+            <div class="class-description">Represents a 3D coordinate matrix.</div>
         
     
 </header>
@@ -45,7 +45,7 @@
     
 
     
-    <h4 class="name" id="Coordinate3D"><span class="type-signature"></span>new Coordinate3D<span class="signature">(x, y, z)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="CoordinateMatrix3D"><span class="type-signature"></span>new CoordinateMatrix3D<span class="signature">(minX, maxX, minY, maxY, minZ, maxZ, start)</span><span class="type-signature"></span></h4>
     
 
     
@@ -53,7 +53,7 @@
 
 
 <div class="description">
-    Constructs a new 3D Coordinate.
+    Constructs a CoordinateMatrix3D.
 </div>
 
 
@@ -89,7 +89,7 @@
 
         <tr>
             
-                <td class="name"><code>x</code></td>
+                <td class="name"><code>minX</code></td>
             
 
             <td class="type">
@@ -105,14 +105,14 @@
 
             
 
-            <td class="description last">The X Value</td>
+            <td class="description last">The minimum x value.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>y</code></td>
+                <td class="name"><code>maxX</code></td>
             
 
             <td class="type">
@@ -128,14 +128,14 @@
 
             
 
-            <td class="description last">The Y Value</td>
+            <td class="description last">The maximum x value.</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>z</code></td>
+                <td class="name"><code>minY</code></td>
             
 
             <td class="type">
@@ -151,7 +151,99 @@
 
             
 
-            <td class="description last">The Z Value</td>
+            <td class="description last">The minimum y value.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>maxY</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The maximum y value.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>minZ</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The minimum z value.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>maxZ</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The maximum z value.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>start</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Coordinate3D.html">Coordinate3D</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The starting coordinate.</td>
         </tr>
 
     
@@ -192,7 +284,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="coordinate.js.html">coordinate.js</a>, <a href="coordinate.js.html#line140">line 140</a>
+        <a href="matrix.js.html">matrix.js</a>, <a href="matrix.js.html#line156">line 156</a>
     </li></ul></dd>
     
 
@@ -223,23 +315,12 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>new Coordinate3D(1, 2, 3) </code></pre>
+    <pre class="prettyprint"><code>new CoordinateMatrix3D(0, 1, 0, 1, 0, 1, new Coordinate3D(0, 0, 0))</code></pre>
 
 
 
     
     </div>
-
-    
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li><a href="Coordinate.html">Coordinate</a></li>
-    </ul>
-
 
     
 
@@ -249,7 +330,7 @@
         <h3 class="subsection-title">Classes</h3>
 
         <dl>
-            <dt><a href="Coordinate3D.html">Coordinate3D</a></dt>
+            <dt><a href="CoordinateMatrix3D.html">CoordinateMatrix3D</a></dt>
             <dd></dd>
         </dl>
     
@@ -265,147 +346,13 @@
 
         
             
-<h4 class="name" id="dimension"><span class="type-signature"></span>dimension<span class="type-signature"></span></h4>
+<h4 class="name" id="maxX"><span class="type-signature"></span>maxX<span class="type-signature"> :number</span></h4>
 
 
 
 
 <div class="description">
-    Returns the dimension of this Coordinate.
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="Coordinate.html#dimension">Coordinate#dimension</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="coordinate.js.html">coordinate.js</a>, <a href="coordinate.js.html#line45">line 45</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="magnitude"><span class="type-signature"></span>magnitude<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    Returns the magnitude of this Coordinate.
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-overrides">Overrides:</dt>
-    <dd class="tag-overrides"><ul class="dummy"><li>
-        <a href="Coordinate.html#magnitude">Coordinate#magnitude</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="coordinate.js.html">coordinate.js</a>, <a href="coordinate.js.html#line37">line 37</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id="x"><span class="type-signature"></span>x<span class="type-signature"> :number</span></h4>
-
-
-
-
-<div class="description">
-    The X value for this 3D Coordinate.
+    The maximum x value of this matrix.
 </div>
 
 
@@ -453,7 +400,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="coordinate.js.html">coordinate.js</a>, <a href="coordinate.js.html#line146">line 146</a>
+        <a href="matrix.js.html">matrix.js</a>, <a href="matrix.js.html#line168">line 168</a>
     </li></ul></dd>
     
 
@@ -471,13 +418,13 @@
 
         
             
-<h4 class="name" id="y"><span class="type-signature"></span>y<span class="type-signature"> :number</span></h4>
+<h4 class="name" id="maxY"><span class="type-signature"></span>maxY<span class="type-signature"> :number</span></h4>
 
 
 
 
 <div class="description">
-    The Y value for this 3D Coordinate.
+    The maximum y value of this matrix.
 </div>
 
 
@@ -525,7 +472,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="coordinate.js.html">coordinate.js</a>, <a href="coordinate.js.html#line152">line 152</a>
+        <a href="matrix.js.html">matrix.js</a>, <a href="matrix.js.html#line180">line 180</a>
     </li></ul></dd>
     
 
@@ -543,13 +490,13 @@
 
         
             
-<h4 class="name" id="z"><span class="type-signature"></span>z<span class="type-signature"> :number</span></h4>
+<h4 class="name" id="maxZ"><span class="type-signature"></span>maxZ<span class="type-signature"> :number</span></h4>
 
 
 
 
 <div class="description">
-    The Z value for this 3D Coordinate.
+    The maximum z value of this matrix.
 </div>
 
 
@@ -597,7 +544,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="coordinate.js.html">coordinate.js</a>, <a href="coordinate.js.html#line158">line 158</a>
+        <a href="matrix.js.html">matrix.js</a>, <a href="matrix.js.html#line192">line 192</a>
     </li></ul></dd>
     
 
@@ -615,16 +562,26 @@
 
         
             
-<h4 class="name" id=".zero"><span class="type-signature">(static) </span>zero<span class="type-signature"></span></h4>
+<h4 class="name" id="minX"><span class="type-signature"></span>minX<span class="type-signature"> :number</span></h4>
 
 
 
 
 <div class="description">
-    Returns a new 3D Coordinate with X, Y and Z at `0`.
+    The minimum x value of this matrix.
 </div>
 
 
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">number</span>
+
+
+        </li>
+    </ul>
 
 
 
@@ -659,7 +616,223 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="coordinate.js.html">coordinate.js</a>, <a href="coordinate.js.html#line201">line 201</a>
+        <a href="matrix.js.html">matrix.js</a>, <a href="matrix.js.html#line162">line 162</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="minY"><span class="type-signature"></span>minY<span class="type-signature"> :number</span></h4>
+
+
+
+
+<div class="description">
+    The minimum y value of this matrix.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">number</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="matrix.js.html">matrix.js</a>, <a href="matrix.js.html#line174">line 174</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="minZ"><span class="type-signature"></span>minZ<span class="type-signature"> :number</span></h4>
+
+
+
+
+<div class="description">
+    The minimum z value of this matrix.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">number</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="matrix.js.html">matrix.js</a>, <a href="matrix.js.html#line186">line 186</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="start"><span class="type-signature"></span>start<span class="type-signature"> :<a href="Coordinate3D.html">Coordinate3D</a></span></h4>
+
+
+
+
+<div class="description">
+    The starting coordinate of this matrix.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><a href="Coordinate3D.html">Coordinate3D</a></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="matrix.js.html">matrix.js</a>, <a href="matrix.js.html#line198">line 198</a>
     </li></ul></dd>
     
 
@@ -695,7 +868,7 @@
 
 
 <div class="description">
-    Returns the string representation of this 3D Coordinate.
+    Gets the string representation of this CoordinateMatrix3D.
 </div>
 
 
@@ -739,7 +912,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="coordinate.js.html">coordinate.js</a>, <a href="coordinate.js.html#line190">line 190</a>
+        <a href="matrix.js.html">matrix.js</a>, <a href="matrix.js.html#line246">line 246</a>
     </li></ul></dd>
     
 
@@ -768,7 +941,7 @@
 
         
 <div class="param-desc">
-    The string representation of this 3D Coordinate.
+    The string representation of this CoordinateMatrix3D.
 </div>
 
 
@@ -797,7 +970,7 @@
     
 
     
-    <h4 class="name" id=".fromString"><span class="type-signature">(static) </span>fromString<span class="signature">(str)</span><span class="type-signature"> &rarr; {<a href="Coordinate3D.html">Coordinate3D</a>}</span></h4>
+    <h4 class="name" id=".fromString"><span class="type-signature">(static) </span>fromString<span class="signature">(str)</span><span class="type-signature"> &rarr; {<a href="CoordinateMatrix3D.html">CoordinateMatrix3D</a>}</span></h4>
     
 
     
@@ -805,7 +978,7 @@
 
 
 <div class="description">
-    Converts a string to a 3D Coordinate.
+    Converts a string to a CoordinateMatrix3D.
 </div>
 
 
@@ -857,7 +1030,7 @@
 
             
 
-            <td class="description last">The string to convert</td>
+            <td class="description last">The string to convert.</td>
         </tr>
 
     
@@ -898,7 +1071,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="coordinate.js.html">coordinate.js</a>, <a href="coordinate.js.html#line213">line 213</a>
+        <a href="matrix.js.html">matrix.js</a>, <a href="matrix.js.html#line261">line 261</a>
     </li></ul></dd>
     
 
@@ -921,13 +1094,42 @@
 
 
 
+<h5>Throws:</h5>
+
+        
+
+<dl>
+    <dt>
+        <div class="param-desc">
+        If the string is invalid.
+        </div>
+    </dt>
+    <dd></dd>
+    <dt>
+        <dl>
+            <dt>
+                Type
+            </dt>
+            <dd>
+                
+<span class="param-type">SyntaxError</span>
+
+
+            </dd>
+        </dl>
+    </dt>
+    <dd></dd>
+</dl>
+
+
+    
 
 
 <h5>Returns:</h5>
 
         
 <div class="param-desc">
-    The 3D Coordinate
+    The parsed CoordinateMatrix3D.
 </div>
 
 
@@ -938,7 +1140,7 @@
     </dt>
     <dd>
         
-<span class="param-type"><a href="Coordinate3D.html">Coordinate3D</a></span>
+<span class="param-type"><a href="CoordinateMatrix3D.html">CoordinateMatrix3D</a></span>
 
 
     </dd>
@@ -951,7 +1153,7 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Coordinate3D.fromString('[1, 2, 3]')</code></pre>
+    <pre class="prettyprint"><code>CoordinateMatrix3D.fromString('(0, 1, 0, 1, 0, 1)^[0, 0, 0]')</code></pre>
 
 
 

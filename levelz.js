@@ -83,7 +83,7 @@ var _builder = _interopRequireDefault(require("./src/builder.js"));
 var _parser = _interopRequireDefault(require("./src/parser.js"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
 
-},{"./src/block.js":2,"./src/builder.js":3,"./src/coordinate.js":4,"./src/level.js":5,"./src/parser.js":6}],2:[function(require,module,exports){
+},{"./src/block.js":2,"./src/builder.js":3,"./src/coordinate.js":4,"./src/level.js":5,"./src/parser.js":7}],2:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -528,6 +528,9 @@ var Coordinate2D = exports.Coordinate2D = /*#__PURE__*/function (_Coordinate) {
      * @static
      * @param {string} str The string to convert 
      * @returns {Coordinate2D} The 2D Coordinate
+     * @throws {SyntaxError} If the string is invalid.
+     * @example
+     * Coordinate2D.fromString('[1, 2]')
      */
   }, {
     key: "fromString",
@@ -619,6 +622,8 @@ var Coordinate3D = exports.Coordinate3D = /*#__PURE__*/function (_Coordinate2) {
      * @static
      * @param {string} str The string to convert 
      * @returns {Coordinate3D} The 3D Coordinate
+     * @example
+     * Coordinate3D.fromString('[1, 2, 3]')
      */
   }, {
     key: "fromString",
@@ -958,6 +963,312 @@ var Level3D = exports.Level3D = /*#__PURE__*/function (_Level3) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.CoordinateMatrix3D = exports.CoordinateMatrix2D = exports.CoordinateMatrix = void 0;
+var _coordinate = require("./coordinate.js");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _possibleConstructorReturn(t, e) { if (e && ("object" == _typeof(e) || "function" == typeof e)) return e; if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined"); return _assertThisInitialized(t); }
+function _assertThisInitialized(e) { if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); return e; }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function _getPrototypeOf(t) { return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) { return t.__proto__ || Object.getPrototypeOf(t); }, _getPrototypeOf(t); }
+function _inherits(t, e) { if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function"); t.prototype = Object.create(e && e.prototype, { constructor: { value: t, writable: !0, configurable: !0 } }), Object.defineProperty(t, "prototype", { writable: !1 }), e && _setPrototypeOf(t, e); }
+function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
+function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+/**
+ * Represents a coordinate matrix.
+ * @abstract
+ * @classdesc Abstract Coordinate Matrix for representation purposes
+ */
+var CoordinateMatrix = exports.CoordinateMatrix = /*#__PURE__*/function () {
+  function CoordinateMatrix() {
+    _classCallCheck(this, CoordinateMatrix);
+    if ((this instanceof CoordinateMatrix ? this.constructor : void 0) === CoordinateMatrix) throw new TypeError('Cannot instantiate abstract class');
+  }
+
+  /**
+   * Gets the iterator for this CoordinateMatrix.
+   * @returns {Iterator<Coordinate>} The iterator for this CoordinateMatrix.
+   */
+  return _createClass(CoordinateMatrix, [{
+    key: Symbol.iterator,
+    value: function value() {
+      return this.coordinates.values();
+    }
+
+    /**
+     * Returns the dimension of this CoordinateMatrix.
+     * @returns {Dimension} The dimension of this CoordinateMatrix.
+     */
+  }, {
+    key: "dimension",
+    get: function get() {
+      throw new Error('Abstract method');
+    }
+
+    /**
+     * Returns the coordinates of this CoordinateMatrix.
+     * @returns {Array<Coordinate>} The coordinates of this CoordinateMatrix.
+     */
+  }, {
+    key: "coordinates",
+    get: function get() {
+      throw new Error('Abstract method');
+    }
+  }]);
+}();
+var CoordinateMatrix2D = exports.CoordinateMatrix2D = /*#__PURE__*/function (_CoordinateMatrix) {
+  /**
+   * Constructs a CoordinateMatrix2D.
+   * @constructor
+   * @param {number} minX The minimum x value.
+   * @param {number} maxX The maximum x value.
+   * @param {number} minY The minimum y value.
+   * @param {number} maxY The maximum y value.
+   * @param {Coordinate2D} start The starting coordinate.
+   * @example
+   * new CoordinateMatrix2D(0, 1, 0, 1, new Coordinate2D(0, 0))
+   */
+  function CoordinateMatrix2D(minX, maxX, minY, maxY, start) {
+    var _this;
+    _classCallCheck(this, CoordinateMatrix2D);
+    _this = _callSuper(this, CoordinateMatrix2D);
+    /**
+     * The minimum x value of this matrix.
+     * @type {number}
+     */
+    _defineProperty(_this, "minX", void 0);
+    /**
+     * The maximum x value of this matrix.
+     * @type {number}
+     */
+    _defineProperty(_this, "maxX", void 0);
+    /**
+     * The minimum y value of this matrix.
+     * @type {number}
+     */
+    _defineProperty(_this, "minY", void 0);
+    /**
+     * The maximum y value of this matrix.
+     * @type {number}
+     */
+    _defineProperty(_this, "maxY", void 0);
+    /**
+     * The starting coordinate of this matrix.
+     * @type {Coordinate2D}
+     */
+    _defineProperty(_this, "start", void 0);
+    if (minX > maxX) throw new SyntaxError("minX cannot be greater than maxX: ".concat(minX, " > ").concat(maxX));
+    if (minY > maxY) throw new SyntaxError("minY cannot be greater than maxY: ".concat(minY, " > ").concat(maxY));
+    _this.minX = minX;
+    _this.maxX = maxX;
+    _this.minY = minY;
+    _this.maxY = maxY;
+    _this.start = start;
+    return _this;
+  }
+  _inherits(CoordinateMatrix2D, _CoordinateMatrix);
+  return _createClass(CoordinateMatrix2D, [{
+    key: "dimension",
+    get: function get() {
+      return _coordinate.Dimension.TWO;
+    }
+  }, {
+    key: "coordinates",
+    get: function get() {
+      var coords = [];
+      for (var x = this.minX; x <= this.maxX; x++) {
+        for (var y = this.minY; y <= this.maxY; y++) {
+          coords.push(new _coordinate.Coordinate2D(x, y));
+        }
+      }
+      return coords;
+    }
+
+    /**
+     * Gets the string representation of this CoordinateMatrix2D.
+     * @returns {string} The string representation of this CoordinateMatrix2D.
+     */
+  }, {
+    key: "toString",
+    value: function toString() {
+      return "(".concat(this.minX, ", ").concat(this.maxX, ", ").concat(this.minY, ", ").concat(this.maxY, ")^").concat(this.start.toString());
+    }
+
+    // Statics
+
+    /**
+     * Converts a string to a CoordinateMatrix2D.
+     * @static
+     * @param {string} str The string to convert. 
+     * @returns {CoordinateMatrix2D} The parsed CoordinateMatrix2D.
+     * @throws {SyntaxError} If the string is invalid.
+     * @example
+     * CoordinateMatrix2D.fromString('(0, 1, 0, 1)^[0, 0]')
+     */
+  }], [{
+    key: "fromString",
+    value: function fromString(str) {
+      var split = str.split(/\^/);
+      if (split.length !== 2) throw new SyntaxError("Invalid 3D matrix string: ".concat(str));
+      var coords = split[1].replace(/[\[\]\s]/g, "").split(/,/);
+      var matrix = split[0].replace(/[()\s]/g, "").split(/,/);
+      if (coords.length !== 2) throw new SyntaxError("Invalid 2D point: ".concat(str));
+      if (matrix.length !== 4) throw new SyntaxError("Invalid 2D matrix: ".concat(str));
+      var cx = parseFloat(coords[0]),
+        cy = parseFloat(coords[1]);
+      var x1 = parseInt(matrix[0]),
+        x2 = parseInt(matrix[1]);
+      var y1 = parseInt(matrix[2]),
+        y2 = parseInt(matrix[3]);
+      if (x1 > x2) throw new SyntaxError("minX cannot be greater than maxX: ".concat(str));
+      if (y1 > y2) throw new SyntaxError("minY cannot be greater than maxY: ".concat(str));
+      return new CoordinateMatrix2D(x1, x2, y1, y2, new _coordinate.Coordinate2D(cx, cy));
+    }
+  }]);
+}(CoordinateMatrix);
+/**
+ * Represents a 3D coordinate matrix.
+ */
+var CoordinateMatrix3D = exports.CoordinateMatrix3D = /*#__PURE__*/function (_CoordinateMatrix2) {
+  /**
+   * Constructs a CoordinateMatrix3D.
+   * @constructor
+   * @param {number} minX The minimum x value.
+   * @param {number} maxX The maximum x value.
+   * @param {number} minY The minimum y value.
+   * @param {number} maxY The maximum y value.
+   * @param {number} minZ The minimum z value.
+   * @param {number} maxZ The maximum z value.
+   * @param {Coordinate3D} start The starting coordinate.
+   * @example
+   * new CoordinateMatrix3D(0, 1, 0, 1, 0, 1, new Coordinate3D(0, 0, 0))
+   */
+  function CoordinateMatrix3D(minX, maxX, minY, maxY, minZ, maxZ, start) {
+    var _this2;
+    _classCallCheck(this, CoordinateMatrix3D);
+    _this2 = _callSuper(this, CoordinateMatrix3D);
+    /**
+     * The minimum x value of this matrix.
+     * @type {number}
+     */
+    _defineProperty(_this2, "minX", void 0);
+    /**
+     * The maximum x value of this matrix.
+     * @type {number}
+     */
+    _defineProperty(_this2, "maxX", void 0);
+    /**
+     * The minimum y value of this matrix.
+     * @type {number}
+     */
+    _defineProperty(_this2, "minY", void 0);
+    /**
+     * The maximum y value of this matrix.
+     * @type {number}
+     */
+    _defineProperty(_this2, "maxY", void 0);
+    /**
+     * The minimum z value of this matrix.
+     * @type {number}
+     */
+    _defineProperty(_this2, "minZ", void 0);
+    /**
+     * The maximum z value of this matrix.
+     * @type {number}
+     */
+    _defineProperty(_this2, "maxZ", void 0);
+    /**
+     * The starting coordinate of this matrix.
+     * @type {Coordinate3D}
+     */
+    _defineProperty(_this2, "start", void 0);
+    _this2.minX = minX;
+    _this2.maxX = maxX;
+    _this2.minY = minY;
+    _this2.maxY = maxY;
+    _this2.minZ = minZ;
+    _this2.maxZ = maxZ;
+    _this2.start = start;
+    return _this2;
+  }
+  _inherits(CoordinateMatrix3D, _CoordinateMatrix2);
+  return _createClass(CoordinateMatrix3D, [{
+    key: "dimension",
+    get: function get() {
+      return _coordinate.Dimension.THREE;
+    }
+  }, {
+    key: "coordinates",
+    get: function get() {
+      var coords = [];
+      for (var x = this.minX; x <= this.maxX; x++) {
+        for (var y = this.minY; y <= this.maxY; y++) {
+          for (var z = this.minZ; z <= this.maxZ; z++) {
+            coords.push(new _coordinate.Coordinate3D(x, y, z));
+          }
+        }
+      }
+      return coords;
+    }
+
+    /**
+     * Gets the string representation of this CoordinateMatrix3D.
+     * @returns {string} The string representation of this CoordinateMatrix3D.
+     */
+  }, {
+    key: "toString",
+    value: function toString() {
+      return "(".concat(this.minX, ", ").concat(this.maxX, ", ").concat(this.minY, ", ").concat(this.maxY, ", ").concat(this.minZ, ", ").concat(this.maxZ, ")^").concat(this.start.toString());
+    }
+
+    // Statics
+
+    /**
+     * Converts a string to a CoordinateMatrix3D.
+     * @static
+     * @param {string} str The string to convert. 
+     * @returns {CoordinateMatrix3D} The parsed CoordinateMatrix3D.
+     * @throws {SyntaxError} If the string is invalid.
+     * @example
+     * CoordinateMatrix3D.fromString('(0, 1, 0, 1, 0, 1)^[0, 0, 0]')
+     */
+  }], [{
+    key: "fromString",
+    value: function fromString(str) {
+      var split = str.split(/\^/);
+      if (split.length !== 2) throw new SyntaxError("Invalid 3D matrix string: ".concat(str));
+      var coords = split[1].replace(/[\[\]\s]/g, "").split(/,/);
+      var matrix = split[0].replace(/[()\s]/g, "").split(/,/);
+      if (coords.length !== 3) throw new SyntaxError("Invalid 2D point: ".concat(str));
+      if (matrix.length !== 6) throw new SyntaxError("Invalid 2D matrix: ".concat(str));
+      var cx = parseFloat(coords[0]),
+        cy = parseFloat(coords[1]),
+        cz = parseFloat(coords[2]);
+      var x1 = parseInt(matrix[0]),
+        x2 = parseInt(matrix[1]);
+      var y1 = parseInt(matrix[2]),
+        y2 = parseInt(matrix[3]);
+      var z1 = parseInt(matrix[4]),
+        z2 = parseInt(matrix[5]);
+      if (x1 > x2) throw new SyntaxError("minX cannot be greater than maxX: ".concat(str));
+      if (y1 > y2) throw new SyntaxError("minY cannot be greater than maxY: ".concat(str));
+      if (z1 > z2) throw new SyntaxError("minZ cannot be greater than maxZ: ".concat(str));
+      return new CoordinateMatrix3D(x1, x2, y1, y2, z1, z2, new _coordinate.Coordinate3D(cx, cy, cz));
+    }
+  }]);
+}(CoordinateMatrix);
+
+},{"./coordinate.js":4}],7:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.parseLevel = parseLevel;
 exports.read2DPoints = read2DPoints;
 exports.read3DPoints = read3DPoints;
@@ -970,6 +1281,7 @@ exports.split = split;
 var _coordinate = require("./coordinate.js");
 var _block = require("./block.js");
 var _level = require("./level.js");
+var _matrix = require("./matrix.js");
 function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t["return"] || t["return"](); } finally { if (u) throw o; } } }; }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -1138,18 +1450,18 @@ function read2DPoints(input) {
       var s = s0.trim();
       if (!s) return;
       if (s.startsWith('(') && s.endsWith(']')) {
-        var _split3 = s.split(/\^/);
-        var coords = _split3[1].replace(/[\[\]\s]/g, "").split(/,/);
-        var matrix = _split3[0].replace(/[()\s]/g, "").split(/,/);
-        if (coords.length !== 2) throw new SyntaxError("Invalid 2D point: ".concat(s0));
-        if (matrix.length !== 4) throw new SyntaxError("Invalid 2D matrix: ".concat(s0));
-        var cx = parseFloat(coords[0]),
-          cy = parseFloat(coords[1]);
-        var x1 = parseInt(matrix[0]),
-          x2 = parseInt(matrix[1]);
-        var y1 = parseInt(matrix[2]),
-          y2 = parseInt(matrix[3]);
-        for (var x = x1; x <= x2; x++) for (var y = y1; y <= y2; y++) points.add(new _coordinate.Coordinate2D(cx + x, cy + y));
+        var _iterator6 = _createForOfIteratorHelper(_matrix.CoordinateMatrix2D.fromString(s)),
+          _step6;
+        try {
+          for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
+            var coord = _step6.value;
+            points.add(coord);
+          }
+        } catch (err) {
+          _iterator6.e(err);
+        } finally {
+          _iterator6.f();
+        }
       } else points.add(_coordinate.Coordinate2D.fromString(s));
     }
   } catch (err) {
@@ -1168,35 +1480,32 @@ function read2DPoints(input) {
 function read3DPoints(input) {
   var points = new Set();
   var inputs = input.split(/\*/);
-  var _iterator6 = _createForOfIteratorHelper(inputs),
-    _step6;
+  var _iterator7 = _createForOfIteratorHelper(inputs),
+    _step7;
   try {
-    for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
-      var s0 = _step6.value;
+    for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
+      var s0 = _step7.value;
       var s = s0.trim();
       if (!s) return;
       if (s.startsWith('(') && s.endsWith(']')) {
-        var _split4 = s.split(/\^/);
-        var coords = _split4[1].replace(/[\[\]\s]/g, "").split(/,/);
-        var matrix = _split4[0].replace(/[()\s]/g, "").split(/,/);
-        if (coords.length !== 3) throw new SyntaxError("Invalid 2D point: ".concat(s0));
-        if (matrix.length !== 6) throw new SyntaxError("Invalid 2D matrix: ".concat(s0));
-        var cx = parseFloat(coords[0]),
-          cy = parseFloat(coords[1]),
-          cz = parseFloat(coords[2]);
-        var x1 = parseInt(matrix[0]),
-          x2 = parseInt(matrix[1]);
-        var y1 = parseInt(matrix[2]),
-          y2 = parseInt(matrix[3]);
-        var z1 = parseInt(matrix[4]),
-          z2 = parseInt(matrix[5]);
-        for (var x = x1; x <= x2; x++) for (var y = y1; y <= y2; y++) for (var z = z1; z <= z2; z++) points.add(new _coordinate.Coordinate3D(cx + x, cy + y, cz + z));
+        var _iterator8 = _createForOfIteratorHelper(_matrix.CoordinateMatrix3D.fromString(s)),
+          _step8;
+        try {
+          for (_iterator8.s(); !(_step8 = _iterator8.n()).done;) {
+            var coord = _step8.value;
+            points.add(coord);
+          }
+        } catch (err) {
+          _iterator8.e(err);
+        } finally {
+          _iterator8.f();
+        }
       } else points.add(_coordinate.Coordinate3D.fromString(s));
     }
   } catch (err) {
-    _iterator6.e(err);
+    _iterator7.e(err);
   } finally {
-    _iterator6.f();
+    _iterator7.f();
   }
   return points;
 }
@@ -1232,11 +1541,11 @@ function readBlock(line) {
     } else blocks = block0.split(/,/g);
     var l = blocks.length;
     var blockToChance = new Map();
-    var _iterator7 = _createForOfIteratorHelper(blocks),
-      _step7;
+    var _iterator9 = _createForOfIteratorHelper(blocks),
+      _step9;
     try {
-      for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
-        var s = _step7.value;
+      for (_iterator9.s(); !(_step9 = _iterator9.n()).done;) {
+        var s = _step9.value;
         var _s$split3 = s.split(/=/, 2),
           _s$split4 = _slicedToArray(_s$split3, 2),
           block = _s$split4[0],
@@ -1245,9 +1554,9 @@ function readBlock(line) {
         if (v) blockToChance.set(readRawBlock(block), v);else blockToChance.set(readRawBlock(block), 1 / l);
       }
     } catch (err) {
-      _iterator7.e(err);
+      _iterator9.e(err);
     } finally {
-      _iterator7.f();
+      _iterator9.f();
     }
     return roll(blockToChance);
   } else return readRawBlock(line);
@@ -1265,11 +1574,11 @@ function readRawBlock(input) {
   if (split.length < 2) return new _block.Block(name);
   var properties = new Map();
   var rawProperties = split[1].split(/,/);
-  var _iterator8 = _createForOfIteratorHelper(rawProperties),
-    _step8;
+  var _iterator10 = _createForOfIteratorHelper(rawProperties),
+    _step10;
   try {
-    for (_iterator8.s(); !(_step8 = _iterator8.n()).done;) {
-      var s = _step8.value;
+    for (_iterator10.s(); !(_step10 = _iterator10.n()).done;) {
+      var s = _step10.value;
       var _s$split5 = s.split(/=/),
         _s$split6 = _slicedToArray(_s$split5, 2),
         key = _s$split6[0],
@@ -1277,11 +1586,11 @@ function readRawBlock(input) {
       properties.set(key, value);
     }
   } catch (err) {
-    _iterator8.e(err);
+    _iterator10.e(err);
   } finally {
-    _iterator8.f();
+    _iterator10.f();
   }
   return new _block.Block(name, properties);
 }
 
-},{"./block.js":2,"./coordinate.js":4,"./level.js":5}]},{},[1]);
+},{"./block.js":2,"./coordinate.js":4,"./level.js":5,"./matrix.js":6}]},{},[1]);
