@@ -1,6 +1,7 @@
-import { Coordinate, Coordinate2D, Coordinate3D } from './coordinate.js'
+import { Coordinate2D, Coordinate3D } from './coordinate.js'
 import { Block, LevelObject } from './block.js'
 import { Level, Level2D, Level3D } from './level.js'
+import { CoordinateMatrix2D, CoordinateMatrix3D } from './matrix.js'
 
 // Export
 
@@ -128,22 +129,8 @@ export function read2DPoints(input) {
         if (!s) return
 
         if (s.startsWith('(') && s.endsWith(']')) {
-            const split = s.split(/\^/)
-
-            const coords = split[1].replace(/[\[\]\s]/g, "").split(/,/)
-            const matrix = split[0].replace(/[()\s]/g, "").split(/,/)
-
-            if (coords.length !== 2) throw new SyntaxError(`Invalid 2D point: ${s0}`)
-            if (matrix.length !== 4) throw new SyntaxError(`Invalid 2D matrix: ${s0}`)
-
-            const cx = parseFloat(coords[0]), cy = parseFloat(coords[1])
-            
-            const x1 = parseInt(matrix[0]), x2 = parseInt(matrix[1]) 
-            const y1 = parseInt(matrix[2]), y2 = parseInt(matrix[3])
-            
-            for (let x = x1; x <= x2; x++)
-                for (let y = y1; y <= y2; y++)
-                    points.add(new Coordinate2D(cx + x, cy + y))
+            for (const coord of CoordinateMatrix2D.fromString(s))
+                points.add(coord)
         } else
             points.add(Coordinate2D.fromString(s))
     }
@@ -166,24 +153,8 @@ export function read3DPoints(input) {
         if (!s) return
 
         if (s.startsWith('(') && s.endsWith(']')) {
-            const split = s.split(/\^/)
-
-            const coords = split[1].replace(/[\[\]\s]/g, "").split(/,/)
-            const matrix = split[0].replace(/[()\s]/g, "").split(/,/)
-
-            if (coords.length !== 3) throw new SyntaxError(`Invalid 2D point: ${s0}`)
-            if (matrix.length !== 6) throw new SyntaxError(`Invalid 2D matrix: ${s0}`)
-
-            const cx = parseFloat(coords[0]), cy = parseFloat(coords[1]), cz = parseFloat(coords[2])
-            
-            const x1 = parseInt(matrix[0]), x2 = parseInt(matrix[1]) 
-            const y1 = parseInt(matrix[2]), y2 = parseInt(matrix[3])
-            const z1 = parseInt(matrix[4]), z2 = parseInt(matrix[5])
-            
-            for (let x = x1; x <= x2; x++)
-                for (let y = y1; y <= y2; y++)
-                    for (let z = z1; z <= z2; z++)
-                        points.add(new Coordinate3D(cx + x, cy + y, cz + z))
+            for (const coord of CoordinateMatrix3D.fromString(s))
+                points.add(coord)
         } else
             points.add(Coordinate3D.fromString(s))
     }
