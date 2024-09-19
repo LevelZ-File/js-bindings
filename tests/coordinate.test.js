@@ -39,6 +39,24 @@ describe('coordinates', () => {
         expect(c).toEqual(Coordinate3D.zero)
     })
 
+    test('zero 2D', () => {
+        expect(Coordinate2D.zero.toString()).toBe('[0, 0]')
+    })
+
+    test('zero 3D', () => {
+        expect(Coordinate3D.zero.toString()).toBe('[0, 0, 0]')
+    })
+
+    test('toString 2D', () => {
+        const c = new Coordinate2D(2, 3)
+        expect(c.toString()).toBe('[2, 3]')
+    })
+
+    test('toString 3D', () => {
+        const c = new Coordinate3D(2, 3, 4)
+        expect(c.toString()).toBe('[2, 3, 4]')
+    })
+
     test('fromString 2D', () => {
         let c = Coordinate2D.fromString('[2,3]')
         expect(c.x).toBe(2)
