@@ -114,6 +114,9 @@ export class Coordinate2D extends Coordinate {
      * @static
      * @param {string} str The string to convert 
      * @returns {Coordinate2D} The 2D Coordinate
+     * @throws {SyntaxError} If the string is invalid.
+     * @example
+     * Coordinate2D.fromString('[1, 2]')
      */
     static fromString(str) {
         if (!str || typeof(str) !== 'string')
@@ -204,6 +207,8 @@ export class Coordinate3D extends Coordinate {
      * @static
      * @param {string} str The string to convert 
      * @returns {Coordinate3D} The 3D Coordinate
+     * @example
+     * Coordinate3D.fromString('[1, 2, 3]')
      */
     static fromString(str) {
         if (!str || typeof(str) !== 'string')
