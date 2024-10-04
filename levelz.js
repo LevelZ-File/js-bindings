@@ -1417,7 +1417,7 @@ function readHeaders(headers) {
     for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
       var s = _step4.value;
       if (!s.startsWith('@')) throw new SyntaxError("'Invalid header; does not start with @: ".concat(s));
-      var _s$split = s.split(/\s([\s\S]*)/),
+      var _s$split = s.split(/\s([^]*)/),
         _s$split2 = _slicedToArray(_s$split, 2),
         key = _s$split2[0],
         value = _s$split2[1];
