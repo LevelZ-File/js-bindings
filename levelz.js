@@ -1574,11 +1574,11 @@ function readRawBlock(input) {
   if (split.length < 2) return new _block.Block(name);
   var properties = new Map();
   var rawProperties = split[1].split(/,/);
-  var _iterator10 = _createForOfIteratorHelper(rawProperties),
-    _step10;
+  var _iterator0 = _createForOfIteratorHelper(rawProperties),
+    _step0;
   try {
-    for (_iterator10.s(); !(_step10 = _iterator10.n()).done;) {
-      var s = _step10.value;
+    for (_iterator0.s(); !(_step0 = _iterator0.n()).done;) {
+      var s = _step0.value;
       var _s$split5 = s.split(/=/),
         _s$split6 = _slicedToArray(_s$split5, 2),
         key = _s$split6[0],
@@ -1586,9 +1586,9 @@ function readRawBlock(input) {
       properties.set(key, value);
     }
   } catch (err) {
-    _iterator10.e(err);
+    _iterator0.e(err);
   } finally {
-    _iterator10.f();
+    _iterator0.f();
   }
   return new _block.Block(name, properties);
 }
